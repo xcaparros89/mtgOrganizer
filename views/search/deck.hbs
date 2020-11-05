@@ -65,10 +65,15 @@
     </div>
     </div>
     {{/if}}
-
-    <ul>
     {{#each decks}}
-    <li><a href='/search/deck/{{_id}}'>{{title}}</a><div class='mana-cost text-center'>{{colors}}</div></li>
+    <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
+            <a href="search/deck/{{_id._id}}">
+                <img class="features-img" src="{{imgPath}}">
+                <div class="centered-deck">
+                    <p class="">{{title}}</p>
+                    <div class='mana-cost text-center'>{{colors}}</div>
+                </div>
+            </a>
+            </article>
     {{/each}}
-    </ul>
 </div>

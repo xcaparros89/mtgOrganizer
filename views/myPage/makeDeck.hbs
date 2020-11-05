@@ -40,7 +40,7 @@
 <div class="row">
     <div class='col-12'>
         <h1>{{newDeck.title}}</h1>
-        <form action="/makeDeck/modify/text" method="POST">
+        <form action="/makeDeck/modify/text" method="POST" enctype="multipart/form-data">
         <input name='title' type='text' value="{{newDeck.title}}">
         <input name='description' type='text' value="{{newDeck.description}}">
         <p>Deck image:<span><input type="file" name="photo"></span></p>
