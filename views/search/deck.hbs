@@ -1,11 +1,11 @@
- <div class="row pattern-temur avoidSticked" style="min-height:85vh">
+<div class="row pattern-temur avoidSticked" style="min-height:90vh">
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
             <h2>Deck search</h2>
         </div>
     </div>
-                    <div class="Divider">
+        <div class="Divider">
             <hr class="Divider-rule">
         </div>
     <div class="row pattern-dark" style="padding-top:30px">
@@ -35,8 +35,8 @@
                     <input hidden id='R' type="checkbox" name="colors[]" value="R"><label for='R'><img id='searchR' class='color-unchecked color-search' src='/img/mana-cost/R.png' alt='R' onclick="clicked('searchR')"></label>
                     <input hidden id='U' type="checkbox" name="colors[]" value="U"><label for='U'><img id='searchU' class='color-unchecked color-search' src='/img/mana-cost/U.png' alt='U' onclick="clicked('searchU')"></label>
                 </div>
-                <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
-                <a href="javascript:$('#form').submit();"  class="button-game">
+                <div class="col-xs-12" style="min-width:200px; padding-left:0; padding-right:0;">
+                <a href="javascript:$('#form').submit();"  class="button-game btn-search">
                     <span class="button-game-bg-left"></span>
                     <span class="button-game-bg-mid">
                         <span class="ion-search  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Search</span>
@@ -68,7 +68,7 @@
 
     <ul>
     {{#each decks}}
-    <li><a href='/search/deck/{{_id}}'>{{title}}</a><div class='mana-cost'>{{colors}}</div></li>
+    <li><a href='/search/deck/{{_id}}'>{{title}}</a><div class='mana-cost text-center'>{{colors}}</div></li>
     {{/each}}
     </ul>
 </div>

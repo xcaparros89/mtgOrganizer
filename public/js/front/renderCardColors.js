@@ -13,7 +13,7 @@ manaCost.forEach(card=>{
     newCard.forEach(simbol=>{
         if(simbol){
             simbol = simbol.split('/').join('');
-            innerHTML += `<img class='symbol' src='/img/mana-cost/${simbol}.png' alt=${simbol} >`;
+            innerHTML += `<img class='symbol' src='/img/mana-cost/${simbol}.png' alt=${simbol} >&nbsp;`;
             }
         });
     card.innerHTML = innerHTML;
