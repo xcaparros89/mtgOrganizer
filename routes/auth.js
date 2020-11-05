@@ -8,8 +8,8 @@ const User = require("../models/User");
 
 const bcrypt = require("bcryptjs");
 
-router.get("/login2", function (req, res, next) {
-  res.render("auth/login2");
+router.get("/signup", function (req, res, next) {
+  res.render("auth/signup");
 });
 
 router.post("/signup", async (req, res, next) => {
