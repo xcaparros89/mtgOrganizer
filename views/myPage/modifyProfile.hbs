@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-            <form id="form" class="contact-form login-form" action="/modifyProfile" method="POST">
+            <form id="form" class="contact-form login-form" action="/modifyProfile" method="POST" enctype="multipart/form-data">
                 <p>Username:<span><input type='text' name='username' value='{{user.username}}'></span></p>
                 <p>Email:<span><input type='text' name='email' value='{{user.email}}'></span></p>
                 <p>Password:<span><input type='password' name='password' placeholder='Add new password'></span></p>

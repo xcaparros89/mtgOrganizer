@@ -27,10 +27,17 @@
        {{#each myDecks}}
             <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
             <a href="search/deck/{{_id._id}}">
+<<<<<<< HEAD
                 <img class="features-img" src="/img/deck/decks_b.png" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
                 <div class="centered-deck">
                     <p class="">{{title}}</p>
                     <div class='mana-cost text-center'>{{colors}}</div>
+=======
+                <img class="features-img" src="{{imgPath}}" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
+                <div class="centered">
+                    <p>{{title}}</p>
+                    <div class='mana-cost'>{{colors}}</div>
+>>>>>>> master
                 </div>
             </a>
             </article>

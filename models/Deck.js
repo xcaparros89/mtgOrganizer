@@ -5,6 +5,8 @@ const deckSchema = new Schema(
   {
     title: {type: String, require: true},
     description: {type: String, require: true},
+    imgPath: {type: String, default: 'img/defaultDeck.png'},
+    imgName: {type:String, default:'default'},
     authorId: {type: String, require: true},
     mainCards: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}], // Min 60 No more than 4 of each excepting basic lands
     sideboard: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],// Max 15
