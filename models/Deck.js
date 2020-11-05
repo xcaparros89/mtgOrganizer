@@ -8,7 +8,16 @@ const deckSchema = new Schema(
     imgPath: {type: String, default: 'img/defaultDeck.png'},
     imgName: {type:String, default:'default'},
     authorId: {type: String, require: true},
-    mainCards: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}], // Min 60 No more than 4 of each excepting basic lands
+    mainCards: 
+    {creatures: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    lands: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    instants: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    sorceries: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    enchantments: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    artifacts: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    planeswalkers: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    others: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
+    }, // Min 60 No more than 4 of each excepting basic lands
     sideboard: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],// Max 15
     legalities: {type: [String]},
     colors:{type: [String], require: true},

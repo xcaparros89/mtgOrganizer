@@ -55,13 +55,13 @@ router.post("/signup", async (req, res, next) => {
       return;
     }
 
-    await User.create({
+    let newUser = await User.create({
       username,
       email,
       password: hashPass,
       imgPath: `img/defaultAvatar${req.body.favoriteColor}.png`
     });
-    req.session.currentUser = user;
+    req.session.currentUser = newUser;
     res.redirect("/myCollection");
   } catch (error) {
     next(error);
