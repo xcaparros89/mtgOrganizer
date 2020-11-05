@@ -1,4 +1,4 @@
-# Project2
+# MTG-Organizer
 
 # Description
 This page is used to manage your magic decks and find new decks and cards
