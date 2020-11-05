@@ -1,5 +1,5 @@
 <!-- myPage/myDecks.hbs -->
-<div class="row pattern-angel avoidSticked" style="min-height:90vh">
+<div class="row pattern-temur avoidSticked" style="min-height:90vh">
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
@@ -12,6 +12,7 @@
             </div>
         <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
         <div class="row text-center" style="margin: 35px auto 0 auto">
+            <hr class="invisible">
             <form id="form" action="/makeDeck" method="POST">
                 <input class="hidden" type='text' name='title' value="My New Deck">
                 <input class="hidden" type='text' name='description' value="Deck description">
@@ -23,7 +24,7 @@
                     <span class="button-game-bg-right"></span>
                 </a>
             </form>
-        </div>
+        </div><hr class="invisible">
         <div class="container">
        {{#each myDecks}}
             <article class="col-xs-12 col-sm-6 col-md-4 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
@@ -39,5 +40,7 @@
         </div>
 
         </div>
+        <hr class="invisible">
+        <hr class="invisible">
     </div>
 </div>
