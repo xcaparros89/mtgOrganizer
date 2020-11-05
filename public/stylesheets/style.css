@@ -1417,7 +1417,7 @@ h3.profile-h{
     height:auto;
     max-width: 210px;
     border-radius: 50%;
-    border: 1px solid rgba(157,146,128,.4);
+    border: 1px solid rgba(236, 209, 154,.4);
     box-shadow: 0px 0px 25px 0px rgba(157,146,128,.6);
 }
 
@@ -1473,6 +1473,9 @@ h3.profile-h{
     border-radius: 50%;
 }
 
+.color-search {
+    margin: auto 5px;
+}
 
 .hide-element{
     display:none;
@@ -1564,6 +1567,16 @@ hr.invisible {
     visibility: hidden;
 }
 
+p.shadow {
+    transition: all .5s ease-in-out;
+}
+
+p.shadow:hover {
+    text-shadow: 0 0 10px #99774c, 0px -5px 15px #a17e51, 0 5px 15px #96744a;
+    /* color:#f6eacf; */
+    color:white;
+}
+
 
 
   /* Increase navbar collapse point*/
@@ -1607,9 +1620,9 @@ hr.invisible {
 
 .colors-search-container{
     display:flex;
-    justify-content: space-evenly;
+    justify-content: center;
     text-align: center;
-    padding: 10px 0;
+    padding: 10px 0px;
 }
 
 .colors-search-container img {
