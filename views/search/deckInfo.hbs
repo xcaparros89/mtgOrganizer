@@ -282,3 +282,53 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="shop-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <span class="Video-border Video-border--top"></span>
+            <span class="Video-border Video-border--right"></span>
+            <span class="Video-border Video-border--bottom"></span>
+            <span class="Video-border Video-border--left"></span>
+            <span class="Video-corner Video-corner--topLeft"></span>
+            <span class="Video-corner Video-corner--topRight"></span>
+            <span class="Video-corner Video-corner--bottomRight"></span>
+            <span class="Video-corner Video-corner--bottomLeft"></span>
+            <div class="modal-header pattern">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">MODAL TITLE</h4>
+            </div>
+            <div class="modal-body pattern-dark clearfix" id="modalBody">
+                <img src="" id="showcase-img" class="img-thumbnail" alt="Showcase MTG Organizer">
+                <ul id="model-feats" class="hidden">
+                    <li>Card Type</li>
+                    <li>Power</li>
+                    <li>Toughness</li>
+                    <li>Pseudo Buy</li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="modal-footer pattern">
+            {{#if logged}}
+              <form id="addCardForm" class="contact-form" action='' method='post'>
+                  <input type="number" name="owned" value="1" min="1" style="max-width: 45px; margin:0 auto;"/>
+                  <a href="javascript:$('#addCardForm').submit();"  class="button-game">
+                      <span class="button-game-bg-left"></span>
+                      <span class="button-game-bg-mid">
+                          <span style="font-size:11px">Add to Collection</span>
+                      </span> 
+                      <span class="button-game-bg-right"></span>
+                  </a>
+              </form>
+            {{/if}}
+              <div class="row">
+                <div class="col-xs-12" id="buy-card" style="margin-top: 15px">
+                  <!-- Buy Card Link -->
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+</div>
+
