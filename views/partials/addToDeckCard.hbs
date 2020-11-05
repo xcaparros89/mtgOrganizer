@@ -1,0 +1,18 @@
+<!-- partials/card.hbs -->
+<div class="col-6 col-sm-6 col-md-4 col-lg-3 p-3">
+    <img class="d-block mx-auto" src="{{image_uris.png}}" alt="{{name}}">
+    <div class="row">
+        <div class="col-12 text-center">
+            <form action='/search/cardForDeck/{{_id}}' method='post'> {{!-- only render this if the user is logged --}}
+                <input name='count' type="number" value="1" min="1" class="m-2" style="display: inline; max-width:40px">
+                 <label for="place">Add in:</label>
+                <select name="place" id="place">
+                <option value="main">Main deck</option>
+                <option value="side">Side deck</option>
+                <option value="undecided">Undecided</option>
+                </select> 
+                <button type='submit'>+</button>
+            </form>
+        </div>
+    </div>
+</div>

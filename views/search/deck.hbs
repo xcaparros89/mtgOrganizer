@@ -1,0 +1,74 @@
+ <div class="row pattern-temur avoidSticked" style="min-height:85vh">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Deck search</h2>
+        </div>
+    </div>
+                    <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+    <div class="row pattern-dark" style="padding-top:30px">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <form id="form" class="contact-form search-form" action="/search/deck" method="POST">
+                <input type="text" name="name" placeholder="Name" onfocus="this.placeholder=''" onblur="this.placeholder='Name'"/>
+                <select name='legalities' id='legalities-select' onfocus="this.placeholder=''" onblur="this.placeholder='Legality'">
+                    <option>Legality</option>
+                    <option value="standard">Standard</option>
+                    <option value="future">Future</option>
+                    <option value="historic">Historic</option>
+                    <option value="pionner">Pionner</option>
+                    <option value="modern">Modern</option>
+                    <option value="legacy">Legacy</option>
+                    <option value="pauper">Pauper</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="penny">Penny</option>
+                    <option value="commander">Commander</option>
+                    <option value="brawl">Brawl</option>
+                    <option value="duel">Duel</option>
+                    <option value="oldschool">Oldschool</option>
+                </select> 
+                <div class='colors-search-container'>
+                    <input hidden id='W' type="checkbox" name="colors[]" value="W"><label for='W'><img id='searchW' class='color-unchecked color-search' src='/img/mana-cost/W.png' alt='W' onclick="clicked('searchW')"></label>
+                    <input hidden id='G' type="checkbox" name="colors[]" value="G"><label for='G'><img id='searchG' class='color-unchecked color-search' src='/img/mana-cost/G.png' alt='G' onclick="clicked('searchG')"></label>
+                    <input hidden id='B' type="checkbox" name="colors[]" value="B"><label for='B'><img id='searchB' class='color-unchecked color-search' src='/img/mana-cost/B.png' alt='B' onclick="clicked('searchB')"></label>
+                    <input hidden id='R' type="checkbox" name="colors[]" value="R"><label for='R'><img id='searchR' class='color-unchecked color-search' src='/img/mana-cost/R.png' alt='R' onclick="clicked('searchR')"></label>
+                    <input hidden id='U' type="checkbox" name="colors[]" value="U"><label for='U'><img id='searchU' class='color-unchecked color-search' src='/img/mana-cost/U.png' alt='U' onclick="clicked('searchU')"></label>
+                </div>
+                <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
+                <a href="javascript:$('#form').submit();"  class="button-game">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                        <span class="ion-search  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Search</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+                </div>
+            </form>
+        </div>
+    </div>
+<div>
+    
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+
+    {{#if cardAdded}}
+    <div class="row" style="margin-top: 40px auto">
+        <!-- ADD CHECK ICON HERE -->
+        <p class="section-description" style="text-align:center">{{addedMessage}}</p>
+    </div>
+    <div class="container">
+        <div class="col-xs-12 items-container bottom-wrapper">
+        <p>&nbsp;</p>
+    </div>
+    </div>
+    {{/if}}
+
+    <ul>
+    {{#each decks}}
+    <li><a href='/search/deck/{{_id}}'>{{title}}</a><div class='mana-cost'>{{colors}}</div></li>
+    {{/each}}
+    </ul>
+</div>

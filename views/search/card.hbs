@@ -1,0 +1,87 @@
+<!-- search/card.hbs -->
+<div class="row pattern-temur avoidSticked" style="min-height:85vh">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Card search</h2>
+        </div>
+    </div>
+                    <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+    <div class="row pattern-dark" style="padding-top:30px">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <form id="form" class="contact-form search-form" action="/search/card" method="POST">
+                <input type="text" name="name" placeholder="Name" onfocus="this.placeholder=''" onblur="this.placeholder='Name'"/>
+                <p onclick="showHide('advParams')">Show advance parameters</p>
+                <div id='advParams' class='hide-element'>
+                <input  type="text" name="type" placeholder="Type" onfocus="this.placeholder=''" onblur="this.placeholder='Type'"/>
+                <input  type="text" name="subtype" placeholder="Subtype" onfocus="this.placeholder=''" onblur="this.placeholder='Subtype'"/>
+                <input  type="text" name="set_name" placeholder="Set Name" onfocus="this.placeholder=''" onblur="this.placeholder='Set Name'"/>
+                <input  type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'"/>
+                <select name='legalities' id='legalities-select' onfocus="this.placeholder=''" onblur="this.placeholder='Legality'">
+                    <option>Legality</option>
+                    <option value="standard">Standard</option>
+                    <option value="future">Future</option>
+                    <option value="historic">Historic</option>
+                    <option value="pionner">Pionner</option>
+                    <option value="modern">Modern</option>
+                    <option value="legacy">Legacy</option>
+                    <option value="pauper">Pauper</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="penny">Penny</option>
+                    <option value="commander">Commander</option>
+                    <option value="brawl">Brawl</option>
+                    <option value="duel">Duel</option>
+                    <option value="oldschool">Oldschool</option>
+                </select> 
+
+                </div>
+                <a href="javascript:$('#form').submit();"  class="button-game">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                        <span class="ion-search  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Search</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+
+    {{#if cardAdded}}
+    <div class="row" style="margin-top: 40px auto">
+        <!-- ADD CHECK ICON HERE -->
+        <p class="section-description" style="text-align:center">{{addedMessage}}</p>
+    </div>
+    <div class="container">
+        <div class="col-xs-12 items-container bottom-wrapper">
+        <p>&nbsp;</p>
+    </div>
+    </div>
+    {{/if}}
+
+    {{#if resultSearch}}
+        <!-- SEARCH RESULTS -->
+        <div class="container" style="margin: 15px auto 70px auto">
+            {{#each resultSearch}}
+                {{> cardCard this}}
+            {{/each}}
+        </div>
+    {{else}}
+    <div class="container">
+        <div class="col-xs-12">
+             <h3>Ready to search</h3>
+             <p class="section-description" style="margin-bottom:45px">You can use and combine different types of criteria: name, type, subtype, set, legality or color.</p>
+        </div>
+    </div>
+    {{/if}}
+    </div>
+</div>
+</div>
+
+

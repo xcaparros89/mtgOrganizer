@@ -1,0 +1,32 @@
+<!-- myPage/profile.hbs -->
+<div class="row pattern-soldier avoidSticked" style="min-height:100vh">
+<div class="container-fluid" style="min-height: 85vh">
+    <div class="row" style="margin-top: 15vh">
+        <div class="col-xs-12">
+            <h2 class="section-header">Profile</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <form id="form" class="contact-form login-form" action="/modifyProfile" method="POST">
+                <p>Username:<span><input type='text' name='username' value='{{user.username}}'></span></p>
+                <p>Email:<span><input type='text' name='email' value='{{user.email}}'></span></p>
+                <p>Password:<span><input type='password' name='password' placeholder='Add new password'></span></p>
+                <p>Password:<span><input type='password' name='password2' placeholder='Repeat new password'></span></p>
+                <p>Profile image:<span><input type="file" name="photo"></span></p>
+                <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
+                    <a href="javascript:$('#form').submit();"  class="button-game">
+                        <span class="button-game-bg-left"></span>
+                        <span class="button-game-bg-mid">
+                            <span type='submit' class="ion-loop button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Update Profile</span>
+                        </span> 
+                        <span class="button-game-bg-right"></span>
+                    </a>
+                </div>
+                <div>{{error}}</div>
+            </form>
+        </div>
+    </div>
+</div
+        
+  

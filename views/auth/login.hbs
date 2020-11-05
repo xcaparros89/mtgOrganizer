@@ -1,0 +1,26 @@
+<!-- search/login.hbs -->
+<div class="row pattern-soldier avoidSticked" style="min-height:100vh">
+<div class="container-fluid" style="min-height: 85vh">
+    <div class="row" style="margin-top: 15vh">
+        <div class="col-xs-12">
+            <h2 class="section-header">Log in</h2>
+        </div>
+    </div>
+    <div class="row center-block">
+        <div class="col-xs-12 text-center">
+            <form id="form" class="contact-form login-form" action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username / Email" onfocus="this.placeholder=''" onblur="this.placeholder='Username / Email'"/></br>
+                <input type="password" name="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"/>
+                <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
+                    <a href="javascript:$('#form').submit();"  class="button-game btn-login">
+                        <span class="button-game-bg-left"></span>
+                        <span class="button-game-bg-mid">
+                            <span>Log in</span>
+                        </span> 
+                        <span class="button-game-bg-right"></span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

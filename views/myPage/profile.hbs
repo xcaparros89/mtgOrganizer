@@ -1,0 +1,36 @@
+<!-- myPage/profile.hbs -->
+<div class="row pattern-temur avoidSticked" style="min-height:85vh">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>My Profile</h2>
+            </div>
+        </div>
+        <!-- ============== DIVIDER ============== -->
+        <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+    </div>
+    <div class="container profile">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="">
+            <img src="https://via.placeholder.com/300x400?text=USER+AVATAR" alt="" class="profile-img">
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <h4 class="profile-h">{{user.username}}</h4>
+            <h3 class="profile-h">{{user.email}}</h4>
+            <div class="col-xs-12 center-block">
+                <div>
+                    <form id="form" action="/modifyProfile" method="GET">
+                        <a href="javascript:$('#form').submit();" class="button-game btn-edit-profile">
+                            <span class="button-game-bg-left"></span>
+                            <span class="button-game-bg-mid">
+                            <span class="ion-compose  button-game-apple"></span><span>&nbsp;&nbsp;Edit</span>
+                            </span> 
+                            <span class="button-game-bg-right"></span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

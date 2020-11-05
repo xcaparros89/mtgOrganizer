@@ -1,0 +1,333 @@
+<!-- search/deckInfo.hbs -->
+<div class="row pattern-dark avoidSticked" style="min-height:85vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(/img/deck/decks_b.png);">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>{{deckOrg.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deckOrg.author}}</span></h2>
+            </div>
+        </div>
+        <!-- ============== START BIG DIVIDER ============== -->
+        <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+        <!-- ============== END BIG DIVIDER ============== -->
+        <!-- ===== START DESCRIPTION AND CARDS ===== -->
+        <div class="container mw750">
+            <div class="col-xs-12" style="margin-top:30px">
+                <p>{{deckOrg.description}}</p>
+            </div>
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            <!-- ===== START DECK CARDS HEADER =====-->
+            <div class="col-xs-12"><p class="innerTitle">Main deck</p></div>
+            <!-- ===== END DECK CARDS HEADER =====-->
+            <!-- ===== START MAIN DECK =====-->
+            {{#if deckOrg.mainCards.creatures}}
+            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
+            {{#each deckOrg.mainCards.creatures}}
+            <div class="col-xs-12 col-sm-6 features-item">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
+                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{_id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{type_line}}" data-power="{{power}}" data-toughness="{{toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}" data-setname="{{set_name}}">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.artifacts}}
+            <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
+            {{#each deckOrg.mainCards.artifacts}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.enchantments}}
+            <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
+            {{#each deckOrg.mainCards.enchantments}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.instants}}
+            <div class="col-xs-12"><p class="innerheader">Instants</p></div>
+            {{#each deckOrg.mainCards.instants}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.sorceries}}
+            <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
+            {{#each deckOrg.mainCards.sorceries}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.planeswalkers}}
+            <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
+            {{#each deckOrg.mainCards.planeswalkers}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.lands}}
+            <div class="col-xs-12"><p class="innerheader">Lands</p></div>
+            {{#each deckOrg.mainCards.lands}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.others}}
+            <div class="col-xs-12"><p class="innerheader">Others</p></div>
+            {{#each deckOrg.mainCards.others}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            <!-- ===== END MAIN DECK ===== -->
+            <!-- ===== START SIDEBOARD ===== -->
+            {{#if deckOrg.sideboard.lands}}
+            <div class="col-xs-12"><p class="innerTitle">Sideboard</p></div>
+            {{#if deckOrg.sideboard.creatures}}
+            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
+            {{#each deckOrg.sideboard.creatures}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.artifacts}}
+            <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
+            {{#each deckOrg.sideboard.artifacts}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.enchantments}}
+            <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
+            {{#each deckOrg.sideboard.enchantments}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.instants}}
+            <div class="col-xs-12"><p class="innerheader">Instants</p></div>
+            {{#each deckOrg.sideboard.instants}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.sorceries}}
+            <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
+            {{#each deckOrg.sideboard.sorceries}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.planeswalkers}}
+            <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
+            {{#each deckOrg.sideboard.planeswalkers}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.lands}}
+            <div class="col-xs-12"><p class="innerheader">Lands</p></div>
+            {{#each deckOrg.sideboard.lands}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.sideboard.others}}
+            <div class="col-xs-12"><p class="innerheader">Others</p></div>
+            {{#each deckOrg.sideboard.others}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{/if}}
+            <!--- ===== END SIDEBOARD ===== -->
+        </div>
+        <!-- ===== // END DESCRIPTION AND CARDS ===== -->
+        <!-- ===== START BUTTONS AND LIKES ===== -->
+        <div class="container mw750" style="margin-top:15px">
+            {{#if isUserAuthor}}
+            <div class="col-xs-6">
+                <p class="atext" style="display: inline">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="atext" style="display: inline">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </p>
+            </div>
+            {{else}}
+            {{#if isLogged}}
+            <div class="col-xs-6">
+                <a href="/deckInfo/like" class="atext">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/deckInfo/dislike" class="atext">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </a>
+            </div>
+            {{else}}
+            <div class="col-xs-6">
+                <a href="/login" class="atext">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/login" class="atext">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </a>
+            </div>
+            {{/if}}
+            {{/if}}
+            <div class="col-xs-6 text-right">
+                {{#if isUserAuthor}}
+                <form id="edit" action="/myDecks/modify/{{deckOrg.id}}" method="POST" style="display:inline">
+                    <a href="javascript:$('#edit').submit();" class="atext">
+                        <span class="ion-compose" style="font-size:140%"></span>&nbsp;&nbsp;Edit Deck
+                    </a>
+                </form>
+               &nbsp;&nbsp;&nbsp;&nbsp; 
+                <form id="delete" action="/myDecks/delete/{{deckOrg.id}}" method="POST" style="display:inline">
+                    <a href="javascript:$('#delete').submit();" class="atext">
+                        <span class="ion-trash-a" style="font-size:140%"></span>&nbsp;&nbsp;Delete Deck
+                    </a>
+                </form>
+                {{else}}
+                {{#if isLogged}}
+                <form id="copy" action="/myDecks/copy/{{deckOrg.id}}" method="GET">
+                    <a href="javascript:$('#copy').submit();" class="atext">
+                        <span class="ion-android-bookmark" style="font-size:140%"></span>&nbsp;&nbsp;Add to My Decks
+                    </a>
+                </form>
+                {{else}}
+                <form id="copy" action="/login" method="GET">
+                    <a href="javascript:$('#copy').submit();" class="atext">
+                        <span class="ion-android-bookmark" style="font-size:140%"></span>&nbsp;&nbsp;Add to My Decks
+                    </a>
+                </form>
+                {{/if}}
+                {{/if}}
+            </div>
+        </div>
+        <!-- ===== END BUTTONS AND LIKES ===== -->
+        <!-- ===== START COMMENTS ===== -->
+        <div class="container text-center mw750">
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            <h2>Comments</h2>
+            <form id="form" class="contact-form" action='/deckInfo/reply' method='POST'>
+                <textarea name="reply" placeholder="What are your thoughts?" rows="4" cols=""></textarea></br>
+                <a href="javascript:$('#form').submit();" class="button-game btn-new-deck">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                    <span>Comment</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
+        </div>
+        <div class="container mw750">
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            {{#each deckOrg.replies}}
+                <p><span class="innerheader">{{author}}</span></p>
+                <p class="comment">{{message}}</p>
+            <hr class="solid">
+            {{/each}}
+        </div>
+        <hr class="invisible">
+        <!-- ===== END COMMENTS ===== -->
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="shop-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <span class="Video-border Video-border--top"></span>
+            <span class="Video-border Video-border--right"></span>
+            <span class="Video-border Video-border--bottom"></span>
+            <span class="Video-border Video-border--left"></span>
+            <span class="Video-corner Video-corner--topLeft"></span>
+            <span class="Video-corner Video-corner--topRight"></span>
+            <span class="Video-corner Video-corner--bottomRight"></span>
+            <span class="Video-corner Video-corner--bottomLeft"></span>
+            <div class="modal-header pattern">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">MODAL TITLE</h4>
+            </div>
+            <div class="modal-body pattern-dark clearfix" id="modalBody">
+                <img src="" id="showcase-img" class="img-thumbnail" alt="Showcase MTG Organizer">
+                <ul id="model-feats" class="hidden">
+                    <li>Card Type</li>
+                    <li>Power</li>
+                    <li>Toughness</li>
+                    <li>Pseudo Buy</li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="modal-footer pattern">
+            {{#if logged}}
+              <form id="addCardForm" class="contact-form" action='' method='post'>
+                  <input type="number" name="owned" value="1" min="1" style="max-width: 45px; margin:0 auto;"/>
+                  <a href="javascript:$('#addCardForm').submit();"  class="button-game">
+                      <span class="button-game-bg-left"></span>
+                      <span class="button-game-bg-mid">
+                          <span style="font-size:11px">Add to Collection</span>
+                      </span> 
+                      <span class="button-game-bg-right"></span>
+                  </a>
+              </form>
+            {{/if}}
+              <div class="row">
+                <div class="col-xs-12" id="buy-card" style="margin-top: 15px">
+                  <!-- Buy Card Link -->
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+</div

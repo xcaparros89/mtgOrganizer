@@ -1,0 +1,54 @@
+{{!-- 
+
+    <ul>
+        {{#each myDecks}}
+            <li>
+                <p>{{title}}</p>
+                <form action="/myDecks/modify/{{_id}}" method="POST"><button>Modify deck</button></form>               
+                <form action="/myDecks/delete/{{_id}}" method="POST"><button>Delete deck</button></form>               
+            </li>
+        {{/each}}
+    </ul> --}}
+
+
+
+<!-- myPage/myCollection.hbs -->
+<div class="row pattern-angel avoidSticked" style="min-height:85vh">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>My Decks</h2>
+            </div>
+        </div>
+            <!-- ============== DIVIDER ============== -->
+            <div class="Divider">
+                <hr class="Divider-rule">
+            </div>
+        <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
+        <div class="row text-center" style="margin: 35px auto 0 auto">
+            <form id="form" action="/makeDeck" method="POST">
+                <input class="hidden" type='text' name='title' value="My New Deck">
+                <input class="hidden" type='text' name='description' value="Deck description">
+                <a href="javascript:$('#form').submit();" class="button-game btn-new-deck">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                    <span>New Deck</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
+        </div>
+       {{#each myDecks}}
+            <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
+            <a href="search/deck/{{_id._id}}">
+                <img class="features-img" src="/img/deck/decks_b.png" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
+                <div class="centered">
+                    <p>{{title}}</p>
+                    <div class='mana-cost'>{{colors}}</div>
+                </div>
+            </a>
+            </article>
+        {{/each}}
+        </div>
+    </div>
+</div>

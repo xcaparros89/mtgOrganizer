@@ -1,0 +1,48 @@
+<!-- partials/collectionCard.hbs -->
+<article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100" data-toggle="modal" data-target="#shop-modal">
+    <img class="features-img" src="{{_id.image_uris.png}}" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="shop-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <span class="Video-border Video-border--top"></span>
+            <span class="Video-border Video-border--right"></span>
+            <span class="Video-border Video-border--bottom"></span>
+            <span class="Video-border Video-border--left"></span>
+            <span class="Video-corner Video-corner--topLeft"></span>
+            <span class="Video-corner Video-corner--topRight"></span>
+            <span class="Video-corner Video-corner--bottomRight"></span>
+            <span class="Video-corner Video-corner--bottomLeft"></span>
+            <div class="modal-header pattern">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">MODAL TITLE</h4>
+            </div>
+            <div class="modal-body pattern-dark clearfix" id="modalBody">
+                <img src="" id="showcase-img" class="img-thumbnail" alt="Showcase MTG Organizer">
+                <ul id="model-feats" class="">
+                    <li>Owned Cards</li>
+                </ul>
+            </div>
+            <div class="modal-footer pattern">
+              <form id="removeCardForm" class="contact-form" action='' method='post'>
+                  <input id="owned" type="number" name="owned" min="0" style="max-width: 45px; margin:0 auto;"/>
+                  <a href="javascript:$('#removeCardForm').submit();"  class="button-game">
+                      <span class="button-game-bg-left"></span>
+                      <span class="button-game-bg-mid">
+                          <span style="font-size:11px">Modify number</span>
+                      </span> 
+                      <span class="button-game-bg-right"></span>
+                  </a>
+              </form>
+              <div class="row">
+                <div class="col-xs-12" id="buy-card" style="margin-top: 15px">
+                  <!-- Buy Card Link -->
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
+</div>

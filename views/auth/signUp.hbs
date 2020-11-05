@@ -1,0 +1,31 @@
+<!-- search/index.hbs -->
+<div class="row pattern-ugin avoidSticked" style="min-height:100vh">
+<div class="container-fluid" style="min-height: 85vh">
+    <div class="row" style="margin-top: 15vh">
+        <div class="col-xs-12">
+            <h2 class="section-header">Sign up</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <form id="form" class="contact-form login-form" action="/signup" method="POST">
+                <input type="text" name="email" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'"/>
+                <input type="text" name="username" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'"/>
+                <input type="password" name="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"/>
+                <input type="password" name="password2" placeholder="Repeat password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"/>
+                <div class="col-xs-10 col-xs-offset-1" style="min-width:200px">
+                    <a href="javascript:$('#form').submit();"  class="button-game">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                    <span class="ion-person-add  button-game-apple"></span><span>&nbsp;&nbsp;Sign up</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                    </a>
+                </div>
+                {{#if errorMessage}}
+                <div class="col-xs-10 col-xs-offset-1 error-message">{{ errorMessage }}</div>
+                {{/if}}
+            </form>
+        </div>
+    </div>
+</div>

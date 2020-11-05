@@ -1,0 +1,20 @@
+<!-- myPage/myCollection.hbs -->
+<div class="row pattern-angel avoidSticked" style="min-height:85vh">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>My Collection</h2>
+            </div>
+        </div>
+                    <!-- ============== DIVIDER ============== -->
+            <div class="Divider">
+                <hr class="Divider-rule">
+            </div>
+        <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
+        <div class="container" style="margin: 15px auto 70px auto">
+            {{#each userCards}}
+            {{> collectionCard this}}
+            {{/each}}
+        </div>
+    </div>
+</div>
