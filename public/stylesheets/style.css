@@ -133,6 +133,12 @@ background-image: url(../img/dark_leather.png); }
     background-position: center center;
 }
 
+.pattern-jace {
+    background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(../img/bg/jace.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
 .pattern-rattleclaw {
     background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/rattleclaw.jpg); 
     background-size: cover;
@@ -1355,7 +1361,7 @@ ion-icon {
     font-weight: 300;
     text-rendering: optimizeLegibility;
     opacity: .6;
-    margin-top:3vh;
+    margin-top:2.5vh;
 }
 
 .section-header {
@@ -1515,11 +1521,13 @@ a.atext:hover {
 }
 
 .search-dropdown {
+    font-size: 22px;
     color: #ad835a;
     transition: all 0.5s ease-in-out;
 }
 
 .search-dropdown:hover {
+    font-size: 22px;
     color: #c4ae78;
 }
 
@@ -1657,7 +1665,7 @@ p.shadow:hover {
     height: 40px;
 }
 
-#legalities-select{
+#legalities-select, #favourite-color{
         /* for Firefox */ 
         -moz-appearance: none; 
         /* for Safari, Chrome, Opera */ 

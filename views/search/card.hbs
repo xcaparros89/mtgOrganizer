@@ -11,21 +11,20 @@
         </div>
     <div class="row pattern-dark" style="padding-top:30px">
         <div class="container mw750">
-
             <form id="form" class="contact-form search-form" action="/search/card" method="POST">
-            <div class="col-xs-11" style="padding-right:0px">
-                <input type="text" name="name" placeholder="Card name" onfocus="this.placeholder=''" onblur="this.placeholder='Card name...'"/>
+            <div class="col-xs-11" style="padding-right:0px;max-width:657px">
+                <input style="margin-bottom:5px;" type="text" name="name" placeholder="Card name" onfocus="this.placeholder=''" onblur="this.placeholder='Card name'"/>
             </div>
-            <div class="col-xs-1 text-right" style="padding-left:0px;">
-                <span onclick="showHide('advParams')" style="display:inline"class="ion-android-arrow-dropdown-circle  button-game-apple search-dropdown"></span>
+            <div class="col-xs-1 text-center" style="padding-left:0px;">
+                <span onclick="showHide('advParams')" style="display:inline"class="ion-android-arrow-dropdown-circle search-dropdown"></span>
             </div>
             <!-- ===== START ADVANCED SEARCH FIELDS =====-->
-            <div class="col-xs-11" style="padding-right:0px">
+            <div class="col-xs-11" style="padding-right:0px; max-width:657px">
                 <div id='advParams' class='hide-element'>
                 <input  type="text" name="type" placeholder="Type" onfocus="this.placeholder=''" onblur="this.placeholder='Type'" style="margin-bottom:5px;"/>
                 <input  type="text" name="subtype" placeholder="Subtype" onfocus="this.placeholder=''" onblur="this.placeholder='Subtype'"style="margin-bottom:5px;"/>
                 <input  type="text" name="set_name" placeholder="Set Name" onfocus="this.placeholder=''" onblur="this.placeholder='Set Name'"style="margin-bottom:5px;"/>
-                <input  type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'" style="margin-bottom:5px;"/>
+                {{!-- <input  type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'" style="margin-bottom:5px;"/> --}}
                 <select class="" name='legalities' id='legalities-select' style="margin-bottom:10px;">
                     <option selected="">Legality</option>
                     <option value="standard">Standard</option>
@@ -42,10 +41,17 @@
                     <option value="duel">Duel</option>
                     <option value="oldschool">Oldschool</option>
                 </select>
+                <div class='colors-search-container'>
+                    <input hidden id='W' type="checkbox" name="colors[]" value="W"><label for='W'><img id='searchW' class='color-unchecked color-search' src='/img/mana-cost/W.png' alt='W' onclick="clicked('searchW')"></label>
+                    <input hidden id='G' type="checkbox" name="colors[]" value="G"><label for='G'><img id='searchG' class='color-unchecked color-search' src='/img/mana-cost/G.png' alt='G' onclick="clicked('searchG')"></label>
+                    <input hidden id='B' type="checkbox" name="colors[]" value="B"><label for='B'><img id='searchB' class='color-unchecked color-search' src='/img/mana-cost/B.png' alt='B' onclick="clicked('searchB')"></label>
+                    <input hidden id='R' type="checkbox" name="colors[]" value="R"><label for='R'><img id='searchR' class='color-unchecked color-search' src='/img/mana-cost/R.png' alt='R' onclick="clicked('searchR')"></label>
+                    <input hidden id='U' type="checkbox" name="colors[]" value="U"><label for='U'><img id='searchU' class='color-unchecked color-search' src='/img/mana-cost/U.png' alt='U' onclick="clicked('searchU')"></label>
+                </div>
                 </div>
             </div> 
             <!-- ===== END ADVANCED SEARCH FIELDS =====-->  
-            <div class="col-xs-12" style="padding-left:11px; padding-right:11px;">
+            <div class="col-xs-11" style="padding-left:11px; padding-right:0px;max-width:678px">
                 <a href="javascript:$('#form').submit();"  class="button-game btn-search">
                     <span class="button-game-bg-left"></span>
                     <span class="button-game-bg-mid">
