@@ -167,7 +167,7 @@ router.post("/search/cardForDeck/:id", (req, res, next) => {
 router.post('/makeDeck/modify/text', (req,res,next)=>{
   newDeck.title = filter.clean(req.body.title); 
   newDeck.description = filter.clean(req.body.description);
-  newDeck.imgPath = req.body.imgPath;
+  if(req.body.imgPath)newDeck.imgPath = req.body.imgPath;
   res.render("myPage/makeDeck", { newDeck });
 });
 
