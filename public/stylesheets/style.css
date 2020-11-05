@@ -269,16 +269,22 @@ top: 5px;
 width: 164px; }
 
 ::selection {
-background: #b2321f;
-color: #ffcb8d; }
+background: #28211b;
+color: #ffcb8d;
+text-align:center;
+}
 
 ::-moz-selection {
-background: #b2321f;
-color: #ffcb8d; }
+background: #28211b;
+color: #ffcb8d; 
+text-align: center;
+}
 
 option {
-background: #b2321f;
-color: #ffcb8d; }
+background: #28211b;
+color: #ffcb8d;
+text-align:center;
+}
 
 .navbar-custom {
 background: linear-gradient(rgba(34, 34, 34, 0.95), rgba(34, 34, 34, 0.75));
@@ -1386,7 +1392,7 @@ ion-icon {
 
 @media (min-width: 769px) {
     .search-form input {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 }
 
@@ -1506,6 +1512,27 @@ a.atext:hover {
     font-size:18px;
     text-decoration: none;
     color: #c4ae78;
+}
+
+.search-dropdown {
+    color: #ad835a;
+    transition: all 0.5s ease-in-out;
+}
+
+.search-dropdown:hover {
+    color: #c4ae78;
+}
+
+@media (max-width:500px){
+    .search-dropdown {
+        font-size: 18px;
+    }
+    
+    .search-dropdown:hover {
+        font-size: 18px;
+    }
+
+
 }
 
 .centered-deck {
@@ -1635,5 +1662,5 @@ p.shadow:hover {
         -moz-appearance: none; 
         /* for Safari, Chrome, Opera */ 
         -webkit-appearance: none; 
-        color: #ffcb8d
+        color: #967755;
 }
