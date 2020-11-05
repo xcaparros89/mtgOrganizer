@@ -305,14 +305,7 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
   let sideboard = [];
   myDeck.mainCards.forEach(cardObj=>{mainCards.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
-<<<<<<< HEAD
   newDeck = {title:myDeck.title, description:myDeck.description, cards: {main:mainCards, side:sideboard, undecided:[]}};
-=======
-  let newTitle = myDeck.title.split(' ').join('&nbsp');
-  let newDescription = myDeck.description.split(' ').join('&nbsp');
-  newDeck = {title:myDeck.title, description:myDeck.description, cards: {main:mainCards, side:sideboard, undecided:[]}};
-  console.log(newDeck.cards.main)
->>>>>>> e4330eea252d4af714ca8ccb4aa6413de59a2acb
   res.render('myPage/makeDeck', {newDeck});
 });
 
