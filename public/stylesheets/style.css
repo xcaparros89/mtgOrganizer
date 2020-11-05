@@ -121,6 +121,12 @@ background-image: url(../img/dark_leather.png); }
     background-position: center center;
 }
 
+.pattern-chandra {
+    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/chandra.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
 .pattern-dragon {
     background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/dragon.jpg); 
     background-size: cover;
@@ -135,6 +141,12 @@ background-image: url(../img/dark_leather.png); }
 
 .pattern-jace {
     background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(../img/bg/jace.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-liliana {
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/liliana.jpg); 
     background-size: cover;
     background-position: center center;
 }
