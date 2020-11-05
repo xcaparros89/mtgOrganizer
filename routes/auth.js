@@ -59,6 +59,7 @@ router.post("/signup", async (req, res, next) => {
       username,
       email,
       password: hashPass,
+      imgPath: `img/defaultAvatar${req.body.favoriteColor}.png`
     });
     req.session.currentUser = user;
     res.redirect("/myCollection");

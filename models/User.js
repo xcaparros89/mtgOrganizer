@@ -8,7 +8,8 @@ const userSchema = new Schema(
     password: {type: String, require: true},
     decksId: { type: [String]},
     userCards: [{_id: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
-    profileImg: {type: String, default: 'images/defaultAvatar.png'}
+    imgPath: {type: String, default: 'img/defaultAvatarBlack.png'},
+    imgName: {type:String, default:'default'}
   },
   {
     timestamps: true,
