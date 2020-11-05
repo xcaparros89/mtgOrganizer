@@ -103,7 +103,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
 let newDeck = {};
 let currentDeck; //used when modifiying decks
 router.post('/makeDeck', function (req,res,next){
-  newDeck={title: filter.clean(req.body.title), description: filter.clean(req.body.description)}
+  newDeck={title: filter.clean(req.body.title), description: filter.clean(req.body.description), author: req.session.currentUser.username};
   res.render('myPage/makeDeck', {newDeck});
 });
 
@@ -164,10 +164,14 @@ router.post("/search/cardForDeck/:id", (req, res, next) => {
     res.render("myPage/makeDeck", { newDeck });
 });
 
-router.post('/makeDeck/modify/text', (req,res,next)=>{
+router.post('/makeDeck/modify/text', uploadCloud.single("photo"), (req,res,next)=>{
   newDeck.title = filter.clean(req.body.title); 
   newDeck.description = filter.clean(req.body.description);
-  if(req.body.imgPath)newDeck.imgPath = req.body.imgPath;
+  console.log(req.file);
+  if(req.file){
+    newDeck.imgPath = req.file.url.split('/upload/').join('/upload/w_1600,h_900,c_crop/')//aqui has de fer split('upload').join('upload/elscanvisquesiguiquevulguis a la imatge'npm)
+  }
+  console.log(newDeck.imgPath)
   res.render("myPage/makeDeck", { newDeck });
 });
 
@@ -261,8 +265,9 @@ router.get('/makeDeck/save',async (req,res,next)=>{
     mistakes = ''; // uncomment this line is to have the validation for number of cards in deck, 4 of a kind...
     if(!mistakes){
     if(currentDeck){
-      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, legalities:legalities, colors:[...colors], title:newDeck.title, description: newDeck.description});
+      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, imgPath: newDeck.imgPath, legalities:legalities, colors:[...colors], title:newDeck.title, description: newDeck.description});
     }else{
+      let newImgPath = newDeck.imgPath? newDeck.imgPath : 'img/defaultDeck.png';
       await Deck.create({ 
           title: newDeck.title,
           description: newDeck.description,
@@ -273,7 +278,8 @@ router.get('/makeDeck/save',async (req,res,next)=>{
           colors: [...colors],
           likes: [],
           dislikes:[],
-          replies: []
+          replies: [],
+          imgPath: newImgPath
         });
     }
     let id = currentDeck;
@@ -306,7 +312,7 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
   let sideboard = [];
   myDeck.mainCards.forEach(cardObj=>{mainCards.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
-  newDeck = {title:myDeck.title, description:myDeck.description, cards: {main:mainCards, side:sideboard, undecided:[]}};
+  newDeck = {title:myDeck.title, description:myDeck.description, imgPath:myDeck.imgPath, cards: {main:mainCards, side:sideboard, undecided:[]}};
   res.render('myPage/makeDeck', {newDeck});
 });
 
