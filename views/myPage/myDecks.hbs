@@ -1,5 +1,5 @@
 <!-- myPage/myDecks.hbs -->
-<div class="row pattern-angel avoidSticked" style="min-height:85vh">
+<div class="row pattern-angel avoidSticked" style="min-height:90vh">
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
@@ -24,8 +24,9 @@
                 </a>
             </form>
         </div>
+        <div class="container">
        {{#each myDecks}}
-            <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
+            <article class="col-xs-12 col-sm-6 col-md-4 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
             <a href="search/deck/{{_id._id}}">
                 <img class="features-img" src="{{imgPath}}" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
                 <div class="centered-deck">
@@ -35,6 +36,8 @@
             </a>
             </article>
         {{/each}}
+        </div>
+
         </div>
     </div>
 </div>

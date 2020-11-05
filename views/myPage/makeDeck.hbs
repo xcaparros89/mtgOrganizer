@@ -1,3 +1,58 @@
+<!-- search/deckInfo.hbs -->
+<div class="row pattern-empty avoidSticked" style="min-height:90vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(/img/deck/decks_b.png);">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>{{newDeck.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deckOrg.author}}</span></h2>
+            </div>
+        </div>
+        <!-- ============== START BIG DIVIDER ============== -->
+        <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+        <!-- ============== END BIG DIVIDER ============== -->
+        <!-- ===== START DESCRIPTION AND CARDS ===== -->
+        <div class="container mw750">
+            <div class="col-xs-12" style="margin-top:30px">
+                <p>{{newDeck.description}}</p>
+            </div>
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            <!-- ===== START DECK CARDS HEADER =====-->
+            <div class="col-xs-12"><p class="innerTitle">Main deck</p></div>
+            <!-- ===== END DECK CARDS HEADER =====-->
+            <!-- ===== START MAIN DECK =====-->
+            {{#if newDeck.cards.creatures}}
+            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
+            {{#each newDeck.cards.creatures}}
+            <div class="col-xs-12 col-sm-6 features-item">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
+                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
+                <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
 <div class="row">
     <div class='col-12'>
         <h1>{{newDeck.title}}</h1>
