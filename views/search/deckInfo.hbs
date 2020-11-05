@@ -1,5 +1,5 @@
 <!-- search/deckInfo.hbs -->
-<div class="row pattern-dark avoidSticked" style="min-height:85vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(/img/deck/decks_b.png);">
+<div class="row pattern-dark avoidSticked" style="min-height:90vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(/img/deck/decks_b.png);">
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
@@ -30,7 +30,7 @@
             {{#each deckOrg.mainCards.creatures}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
-                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{_id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{type_line}}" data-power="{{power}}" data-toughness="{{toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}" data-setname="{{set_name}}">
+                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </span>
             </div>
@@ -40,8 +40,11 @@
             {{#if deckOrg.mainCards.artifacts}}
             <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
             {{#each deckOrg.mainCards.artifacts}}
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-6 features-item">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
+                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
@@ -49,8 +52,11 @@
             {{#if deckOrg.mainCards.enchantments}}
             <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
             {{#each deckOrg.mainCards.enchantments}}
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-6 features-item">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
+                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
