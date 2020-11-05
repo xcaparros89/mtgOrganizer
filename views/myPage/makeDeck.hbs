@@ -372,7 +372,13 @@
         <div>
             <h3 class='col-12'>Side deck</h3>
             {{#each newDeck.cards.side}}
-            <p>{{card.name}}</p>
+            <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}"
+                data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}"
+                data-power="{{card.power}}" data-toughness="{{card.toughness}}"
+                data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}"
+                data-setname="{{card.set_name}}">
+            <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span
+                class="mana-cost">{{card.mana_cost}}</span>                
             <form action="/makeDeck/modify/side/{{card.id}}" method="POST">
                 <input name='count' type="number" value={{count}} min="1" class="m-2"
                     style="display: inline; max-width:40px">
@@ -392,7 +398,13 @@
             {{/each}}
             <h3 class='col-12'>Undecided</h3>
             {{#each newDeck.cards.undecided}}
-            <p>{{card.name}}</p>
+            <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}"
+                data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}"
+                data-power="{{card.power}}" data-toughness="{{card.toughness}}"
+                data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}"
+                data-setname="{{card.set_name}}">
+            <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span
+                class="mana-cost">{{card.mana_cost}}</span>
             <form action="/makeDeck/modify/undecided/{{card.id}}" method="POST">
                 <input name='count' type="number" value={{count}} min="1" class="m-2"
                     style="display: inline; max-width:40px">
