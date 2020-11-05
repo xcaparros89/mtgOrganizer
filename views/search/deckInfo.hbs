@@ -1,9 +1,17 @@
 <!-- search/deckInfo.hbs -->
-<div class="row pattern-empty avoidSticked" style="min-height:90vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url(/img/deck/decks_b.png);">
+<div class="row pattern-empty avoidSticked" style="min-height:90vh; background-image: linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)), url({{deck.imgPath}});">
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
-                <h2>{{deckOrg.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deckOrg.author}}</span></h2>
+                <h2>{{deck.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deck.authorName}}</span></h2>
+                {{#if isLogged}}
+<p onclick="showHide('missing-cards')">Show missing cards in your collection</p>
+<div id='missing-cards' class='hide-element'>
+{{#each deck.missingCards}}
+    <span>{{string}}<a href="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}">Buy</a></span>
+{{/each}}
+</div>
+{{/if}}
             </div>
         </div>
         <!-- ============== START BIG DIVIDER ============== -->
@@ -14,7 +22,7 @@
         <!-- ===== START DESCRIPTION AND CARDS ===== -->
         <div class="container mw750">
             <div class="col-xs-12" style="margin-top:30px">
-                <p>{{deckOrg.description}}</p>
+                <p>{{deck.description}}</p>
             </div>
             <!-- INNER DIVIDER -->
             <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
@@ -25,9 +33,9 @@
             <div class="col-xs-12"><p class="innerTitle">Main deck</p></div>
             <!-- ===== END DECK CARDS HEADER =====-->
             <!-- ===== START MAIN DECK =====-->
-            {{#if deckOrg.mainCards.creatures}}
+            {{#if deck.mainCards.creatures}}
             <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
-            {{#each deckOrg.mainCards.creatures}}
+            {{#each deck.mainCards.creatures}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -37,9 +45,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.artifacts}}
+            {{#if deck.mainCards.artifacts}}
             <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
-            {{#each deckOrg.mainCards.artifacts}}
+            {{#each deck.mainCards.artifacts}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -49,9 +57,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.enchantments}}
+            {{#if deck.mainCards.enchantments}}
             <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
-            {{#each deckOrg.mainCards.enchantments}}
+            {{#each deck.mainCards.enchantments}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -61,9 +69,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.instants}}
+            {{#if deck.mainCards.instants}}
             <div class="col-xs-12"><p class="innerheader">Instants</p></div>
-            {{#each deckOrg.mainCards.instants}}
+            {{#each deck.mainCards.instants}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -73,9 +81,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.sorceries}}
+            {{#if deck.mainCards.sorceries}}
             <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
-            {{#each deckOrg.mainCards.sorceries}}
+            {{#each deck.mainCards.sorceries}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -85,9 +93,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.planeswalkers}}
+            {{#if deck.mainCards.planeswalkers}}
             <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
-            {{#each deckOrg.mainCards.planeswalkers}}
+            {{#each deck.mainCards.planeswalkers}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -97,9 +105,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.lands}}
+            {{#if deck.mainCards.lands}}
             <div class="col-xs-12"><p class="innerheader">Lands</p></div>
-            {{#each deckOrg.mainCards.lands}}
+            {{#each deck.mainCards.lands}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -109,11 +117,11 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.others}}
+            {{#if deck.mainCards.others}}
             <div class="col-xs-12"><p class="innerheader">Others</p></div>
-            {{#each deckOrg.mainCards.others}}
-            <div class="col-xs-12 col-sm-6 features-item">
-            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
+            {{#each deck.mainCards.others}}
+             <div class="col-xs-12 col-sm-6 features-item">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
                 <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </span>
@@ -123,11 +131,11 @@
             {{/if}}
             <!-- ===== END MAIN DECK ===== -->
             <!-- ===== START SIDEBOARD ===== -->
-            {{#if deckOrg.sideboard.lands}}
+            {{#if deck.sideboard.lands}}
             <div class="col-xs-12"><p class="innerTitle">Sideboard</p></div>
-            {{#if deckOrg.sideboard.creatures}}
+            {{#if deck.sideboard.creatures}}
             <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
-            {{#each deckOrg.sideboard.creatures}}
+            {{#each deck.sideboard.creatures}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -137,9 +145,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.artifacts}}
+            {{#if deck.sideboard.artifacts}}
             <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
-            {{#each deckOrg.sideboard.artifacts}}
+            {{#each deck.sideboard.artifacts}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -149,9 +157,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.enchantments}}
+            {{#if deck.sideboard.enchantments}}
             <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
-            {{#each deckOrg.sideboard.enchantments}}
+            {{#each deck.sideboard.enchantments}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -161,9 +169,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.instants}}
+            {{#if deck.sideboard.instants}}
             <div class="col-xs-12"><p class="innerheader">Instants</p></div>
-            {{#each deckOrg.sideboard.instants}}
+            {{#each deck.sideboard.instants}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -173,9 +181,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.sorceries}}
+            {{#if deck.sideboard.sorceries}}
             <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
-            {{#each deckOrg.sideboard.sorceries}}
+            {{#each deck.sideboard.sorceries}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -185,9 +193,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.planeswalkers}}
+            {{#if deck.sideboard.planeswalkers}}
             <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
-            {{#each deckOrg.sideboard.planeswalkers}}
+            {{#each deck.sideboard.planeswalkers}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -197,9 +205,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.lands}}
+            {{#if deck.sideboard.lands}}
             <div class="col-xs-12"><p class="innerheader">Lands</p></div>
-            {{#each deckOrg.sideboard.lands}}
+            {{#each deck.sideboard.lands}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -209,9 +217,9 @@
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.sideboard.others}}
+            {{#if deck.sideboard.others}}
             <div class="col-xs-12"><p class="innerheader">Others</p></div>
-            {{#each deckOrg.sideboard.others}}
+            {{#each deck.sideboard.others}}
             <div class="col-xs-12 col-sm-6 features-item">
             <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
@@ -262,20 +270,20 @@
             {{/if}}
             <div class="col-xs-6 text-right">
                 {{#if isUserAuthor}}
-                <form id="edit" action="/myDecks/modify/{{deckOrg.id}}" method="POST" style="display:inline">
+                <form id="edit" action="/myDecks/modify/{{deck.id}}" method="POST" style="display:inline">
                     <a href="javascript:$('#edit').submit();" class="atext">
                         <span class="ion-compose" style="font-size:140%"></span>&nbsp;&nbsp;Edit Deck
                     </a>
                 </form>
                &nbsp;&nbsp;&nbsp;&nbsp; 
-                <form id="delete" action="/myDecks/delete/{{deckOrg.id}}" method="POST" style="display:inline">
+                <form id="delete" action="/myDecks/delete/{{deck.id}}" method="POST" style="display:inline">
                     <a href="javascript:$('#delete').submit();" class="atext">
                         <span class="ion-trash-a" style="font-size:140%"></span>&nbsp;&nbsp;Delete Deck
                     </a>
                 </form>
                 {{else}}
                 {{#if isLogged}}
-                <form id="copy" action="/myDecks/copy/{{deckOrg.id}}" method="GET">
+                <form id="copy" action="/myDecks/copy/{{deck.id}}" method="GET">
                     <a href="javascript:$('#copy').submit();" class="atext">
                         <span class="ion-android-bookmark" style="font-size:140%"></span>&nbsp;&nbsp;Add to My Decks
                     </a>
@@ -316,7 +324,7 @@
                 <p>&nbsp;</p>
             </div>
             <!-- /INNER DIVIDER -->
-            {{#each deckOrg.replies}}
+            {{#each deck.replies}}
                 <p><span class="innerheader">{{author}}</span></p>
                 <p class="comment">{{message}}</p>
             <hr class="solid">

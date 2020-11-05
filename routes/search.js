@@ -128,60 +128,99 @@ router.get('/search/deck/:id', async (req, res, next)=>{
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
-  deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
+  deck = await Deck.findById(req.params.id).populate('mainCards.creatures.card').populate('mainCards.lands.card').populate('mainCards.planeswalkers.card').populate('mainCards.instants.card').populate('mainCards.enchantments.card').populate('mainCards.sorceries.card').populate('mainCards.artifacts.card').populate('mainCards.others.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
-  let missingCards = req.session.currentUser? [] : ['not connected'];
+  deck.authorName = author.username;
   if( req.session.currentUser){
+    let missingCards =[];
     res.locals.isLogged = true;
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
+    deck.mainCards.creatures.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.instants.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.sorceries.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.enchantments.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.artifacts.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.planeswalkers.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.lands.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });
+    deck.mainCards.others.forEach(cardObj=>{
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+    });  
+  deck.missingCards = missingCards.length === 0 ? [{string:'You own all the cards of this deck'}] : missingCards;
   }
-  let deckOrg={legalities:deck.legalities, colors:deck.colors, likes: deck.likes, dislikes:deck.dislikes, id:deck._id, title: deck.title, description:deck.description, author: author.username, replies: deck.replies, 
-    mainCards:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, sideboard:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}};
-  deck.mainCards.forEach(cardObj=>{
-    if(req.session.currentUser){
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-      }
-      if (/Land/.test(cardObj.card.type_line)){deckOrg.mainCards.lands.push(cardObj);}
-      else if (/Instant/.test(cardObj.card.type_line)){deckOrg.mainCards.instants.push(cardObj);}
-      else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.mainCards.enchantments.push(cardObj);}
-      else if (/Sorcery/.test(cardObj.card.type_line)){deckOrg.mainCards.sorceries.push(cardObj);}
-      else if (/Planeswalker/.test(cardObj.card.type_line)){deckOrg.mainCards.planeswalkers.push(cardObj);}
-      else if (/Creature/.test(cardObj.card.type_line)){deckOrg.mainCards.creatures.push(cardObj);}
-      else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.mainCards.artifacts.push(cardObj);}
-      else {deckOrg.mainCards.others.push(cardObj);}
-  });
-  deck.sideboard.forEach(cardObj=>{
-    if(req.session.currentUser){
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-      }
-    if (/Land/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
-    else if (/Instant/.test(cardObj.card.type_line)){deckOrg.sideboard.instants.push(cardObj);}
-    else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
-    else if (/Sorcery/.test(cardObj.card.type_line)){deckOrg.sideboard.sorceries.push(cardObj);}
-    else if (/Planeswalker/.test(cardObj.card.type_line)){deckOrg.sideboard.planeswalkers.push(cardObj);}
-    else if (/Creature/.test(cardObj.card.type_line)){deckOrg.sideboard.creatures.push(cardObj);}
-    else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.sideboard.artifacts.push(cardObj);}
-    else {deckOrg.sideboard.others.push(cardObj);}
-});
-  
-  deckOrg.missingCards = missingCards.length === 0 ? [{string:'You own all the cards of this deck'}] : missingCards;
+  console.log(deck.missingCards)
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
-  res.render('search/deckInfo', {deckOrg});
+  res.render('search/deckInfo', {deck});
 });
 
 router.post('/deckInfo/reply', async (req,res,next)=>{

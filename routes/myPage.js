@@ -156,12 +156,24 @@ router.post('/makeDeck/search', async (req,res,next)=>{
 });
 
 router.post("/search/cardForDeck/:id", (req, res, next) => {
-  if(!newDeck.cards)newDeck.cards={main:[], side:[], undecided:[]};
+  if(!newDeck.cards)newDeck.cards={ main:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, side:[], undecided:[]}
   let newCard = newDeck.results.find(card=> card._id == req.params.id)
-  console.log(req.params.id)
+   if(req.body.place === 'main'){
+  if (/Land/.test(newCard.type_line)){newDeck.cards.main.lands.push({card:newCard, count:req.body.count});}
+  else if (/Instant/.test(newCard.type_line)){newDeck.cards.main.instants.push({card:newCard, count:req.body.count});}
+  else if (/Enchantment/.test(newCard.type_line)){newDeck.cards.main.enchantments.push({card:newCard, count:req.body.count});}
+  else if (/Sorcery/.test(newCard.type_line)){newDeck.cards.main.sorceries.push({card:newCard, count:req.body.count});}
+  else if (/Planeswalker/.test(newCard.type_line)){newDeck.cards.main.planeswalkers.push({card:newCard, count:req.body.count});}
+  else if (/Creature/.test(newCard.type_line)){newDeck.cards.main.creatures.push({card:newCard, count:req.body.count});}
+  else if (/Artifact/.test(newCard.type_line)){newDeck.cards.main.artifacts.push({card:newCard, count:req.body.count});}
+  else {newDeck.cards.main.others.push({card:newCard, count:req.body.count});}
+   } else if(req.body.place === 'side'){
+      newDeck.cards.side.push({card:newCard, count: req.body.count});
+    } else {
+       newDeck.cards.undecided.push({card:newCard, count: req.body.count});
+      }
   console.log(newDeck.cards);
-  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], {card:newCard, count:req.body.count}];
-    res.render("myPage/makeDeck", { newDeck });
+  res.render("myPage/makeDeck", { newDeck });
 });
 
 router.post('/makeDeck/modify/text', uploadCloud.single("photo"), (req,res,next)=>{
@@ -176,7 +188,14 @@ router.post('/makeDeck/modify/text', uploadCloud.single("photo"), (req,res,next)
 });
 
 router.post('/makeDeck/modify/main/:id', (req,res,next)=>{
-  newDeck.cards.main = newDeck.cards.main.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.creatures = newDeck.cards.main.creatures.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.lands = newDeck.cards.main.lands.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.enchantments = newDeck.cards.main.enchantments.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.sorceries = newDeck.cards.main.sorceries.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.planeswalkers = newDeck.cards.main.planeswalkers.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.instants = newDeck.cards.main.instants.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.artifacts = newDeck.cards.main.artifacts.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  newDeck.cards.main.others = newDeck.cards.main.others.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
   res.render("myPage/makeDeck", { newDeck });
 });
 
@@ -191,23 +210,75 @@ router.post('/makeDeck/modify/undecided/:id', (req,res,next)=>{
 });
 
 router.post('/makeDeck/move/main/:id', (req,res,next)=>{
-  let movedCard = newDeck.cards.main.find(cardObj=> cardObj.card._id == req.params.id);
-  newDeck.cards.main = newDeck.cards.main.filter(cardObj=> cardObj.card._id != req.params.id);
-  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  let movedCardCreature = newDeck.cards.main.creatures.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardLand = newDeck.cards.main.lands.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardEnchantment = newDeck.cards.main.enchantments.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardSorcery = newDeck.cards.main.sorceries.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardPlaneswalkers = newDeck.cards.main.planeswalkers.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardInstants = newDeck.cards.main.instants.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardArtifacts = newDeck.cards.main.artifacts.find(cardObj=> cardObj.card._id == req.params.id);
+  let movedCardOthers = newDeck.cards.main.others.find(cardObj=> cardObj.card._id == req.params.id);
+  if(movedCardCreature){
+    newDeck.cards.main.creatures = newDeck.cards.main.creatures.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardCreature];
+  } else if(movedCardLand){
+    newDeck.cards.main.lands = newDeck.cards.main.lands.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardLand];
+  } else  if(movedCardEnchantment){
+    newDeck.cards.main.enchantments = newDeck.cards.main.enchantments.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardEnchantment];
+  } else  if(movedCardSorcery){
+    newDeck.cards.main.sorceries = newDeck.cards.main.sorceries.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardSorcery];
+  } else  if(movedCardPlaneswalkers){
+    newDeck.cards.main.planeswalkers = newDeck.cards.main.planeswalkers.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardPlaneswalkers];
+  } else  if(movedCardInstants){
+    newDeck.cards.main.instants = newDeck.cards.main.instants.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardInstants];
+  } else  if(movedCardArtifacts){
+    newDeck.cards.main.artifacts = newDeck.cards.main.artifacts.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardArtifacts];
+  } else if(movedCardOthers){
+    newDeck.cards.main.others = newDeck.cards.main.others.filter(cardObj=> cardObj.card._id != req.params.id);
+    newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCardOthers];
+  }
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.post('/makeDeck/move/side/:id', (req,res,next)=>{
   let movedCard = newDeck.cards.side.find(cardObj=> cardObj.card._id == req.params.id);
   newDeck.cards.side = newDeck.cards.side.filter(cardObj=> cardObj.card._id != req.params.id);
-  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  if(req.body.place === 'undecided'){
+    newDeck.cards.undecided = [...newDeck.cards.undecided, movedCard];
+  } else{
+    if (/Land/.test(movedCard.card.type_line)){newDeck.cards.main.lands.push(movedCard);}
+  else if (/Instant/.test(movedCard.card.type_line)){newDeck.cards.main.instants.push(movedCard);}
+  else if (/Enchantment/.test(movedCard.card.type_line)){newDeck.cards.main.enchantments.push(movedCard);}
+  else if (/Sorcery/.test(movedCard.card.type_line)){newDeck.cards.main.sorceries.push(movedCard);}
+  else if (/Planeswalker/.test(movedCard.card.type_line)){newDeck.cards.main.planeswalkers.push(movedCard);}
+  else if (/Creature/.test(movedCard.card.type_line)){newDeck.cards.main.creatures.push(movedCard);}
+  else if (/Artifact/.test(movedCard.card.type_line)){newDeck.cards.main.artifacts.push(movedCard);}
+  else {newDeck.cards.main.others.push(movedCard);}
+  }
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.post('/makeDeck/move/undecided/:id', (req,res,next)=>{
   let movedCard = newDeck.cards.undecided.find(cardObj=> cardObj.card._id == req.params.id);
   newDeck.cards.undecided = newDeck.cards.undecided.filter(cardObj=> cardObj.card._id != req.params.id);
-  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  if(req.body.place === 'side'){
+    newDeck.cards.side = [...newDeck.cards.side, movedCard];
+  } else{
+    if (/Land/.test(movedCard.card.type_line)){newDeck.cards.main.lands.push(movedCard);}
+  else if (/Instant/.test(movedCard.card.type_line)){newDeck.cards.main.instants.push(movedCard);}
+  else if (/Enchantment/.test(movedCard.card.type_line)){newDeck.cards.main.enchantments.push(movedCard);}
+  else if (/Sorcery/.test(movedCard.card.type_line)){newDeck.cards.main.sorceries.push(movedCard);}
+  else if (/Planeswalker/.test(movedCard.card.type_line)){newDeck.cards.main.planeswalkers.push(movedCard);}
+  else if (/Creature/.test(movedCard.card.type_line)){newDeck.cards.main.creatures.push(movedCard);}
+  else if (/Artifact/.test(movedCard.card.type_line)){newDeck.cards.main.artifacts.push(movedCard);}
+  else {newDeck.cards.main.others.push(movedCard);}
+  }
   res.render("myPage/makeDeck", { newDeck });
 });
 
@@ -215,7 +286,14 @@ router.get('/makeDeck/delete/main/:id', (req,res,next)=>{
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
-  newDeck.cards.main = newDeck.cards.main.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.lands = newDeck.cards.main.lands.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.instants = newDeck.cards.main.instants.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.enchantments = newDeck.cards.main.enchantments.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.sorceries = newDeck.cards.main.sorceries.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.planeswalkers = newDeck.cards.main.planeswalkers.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.creatures = newDeck.cards.main.creatures.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.artifacts = newDeck.cards.main.artifacts.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards.main.others = newDeck.cards.main.others.filter(cardObj=> cardObj.card._id != req.params.id);
   res.render("myPage/makeDeck", { newDeck });
 });
 
@@ -244,7 +322,63 @@ router.get('/makeDeck/save',async (req,res,next)=>{
   let legalities = ['standard', 'future', 'historic', 'pioneer', 'modern', 'legacy', 'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool'];
   if(newDeck.cards.main.length <60) mistakes += 'The deck must have a minimum of 60 cards.';
   if(newDeck.cards.side.length >15) mistakes += 'The side deck must have a maximum of 15 cards.'; 
-    newDeck.cards.main = newDeck.cards.main.map(cardObj=>{
+    newDeck.cards.main.creatures = newDeck.cards.main.creatures.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.sorceries = newDeck.cards.main.sorceries.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.instants = newDeck.cards.main.instants.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.enchantments = newDeck.cards.main.enchantments.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.planeswalkers = newDeck.cards.main.planeswalkers.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.artifacts = newDeck.cards.main.artifacts.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.lands = newDeck.cards.main.lands.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    newDeck.cards.main.others = newDeck.cards.main.others.map(cardObj=>{
       if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
       colors = [...colors, ...cardObj.card.colors];
       let newLegalities = [...legalities];
@@ -266,7 +400,12 @@ router.get('/makeDeck/save',async (req,res,next)=>{
     if(!mistakes){
     if(currentDeck){
       await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, imgPath: newDeck.imgPath, legalities:legalities, colors:[...colors], title:newDeck.title, description: newDeck.description});
+      let id = currentDeck;
+      currentDeck='';
+      newDeck = ''; 
+      res.redirect(`/search/deck/${id}`);
     }else{
+      console.log(newDeck);
       let newImgPath = newDeck.imgPath? newDeck.imgPath : 'img/defaultDeck.png';
       await Deck.create({ 
           title: newDeck.title,
@@ -281,11 +420,10 @@ router.get('/makeDeck/save',async (req,res,next)=>{
           replies: [],
           imgPath: newImgPath
         });
+        newDeck = '';
+        res.redirect('/myDecks');
     }
-    let id = currentDeck;
-    currentDeck='';
-    newDeck = ''; 
-    res.redirect(`/search/deck/${id}`);
+
   }else {
     newDeck.mistakes = mistakes;
     res.render("myPage/makeDeck", { newDeck });
@@ -306,11 +444,18 @@ router.get("/myDecks", async function (req, res, next) {
 
 router.post('/myDecks/modify/:id', async function (req,res,next){
   currentDeck = req.params.id;
-  let myDeck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
+  let myDeck = await Deck.findById(req.params.id).populate('mainCards.creatures.card').populate('mainCards.lands.card').populate('mainCards.planeswalkers.card').populate('mainCards.instants.card').populate('mainCards.enchantments.card').populate('mainCards.sorceries.card').populate('mainCards.artifacts.card').populate('mainCards.others.card').populate('sideboard.card');
   console.log(newDeck)
-  let mainCards = []; 
+  let mainCards = {creatures:[],instants:[],sorceries:[],enchantments:[],lands:[],planeswalkers:[],artifacts:[],others:[]}; 
   let sideboard = [];
-  myDeck.mainCards.forEach(cardObj=>{mainCards.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.creatures.forEach(cardObj=>{mainCards.creatures.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.instants.forEach(cardObj=>{mainCards.instants.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.sorceries.forEach(cardObj=>{mainCards.sorceries.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.enchantments.forEach(cardObj=>{mainCards.enchantments.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.lands.forEach(cardObj=>{mainCards.lands.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.planeswalkers.forEach(cardObj=>{mainCards.planeswalkers.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.artifacts.forEach(cardObj=>{mainCards.artifacts.push({card:cardObj.card, count:cardObj.count})});
+  myDeck.mainCards.others.forEach(cardObj=>{mainCards.others.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
   newDeck = {title:myDeck.title, description:myDeck.description, imgPath:myDeck.imgPath, cards: {main:mainCards, side:sideboard, undecided:[]}};
   res.render('myPage/makeDeck', {newDeck});
