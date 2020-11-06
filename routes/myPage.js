@@ -246,7 +246,7 @@ router.post('/makeDeck/modify/text', uploadCloud.single("photo"), (req,res,next)
   newDeck.description = filter.clean(req.body.description);
   console.log(req.file);
   if(req.file){
-    newDeck.imgPath = req.file.url.split('/upload/').join('/upload/w_1600,h_900,c_crop/')//aqui has de fer split('upload').join('upload/elscanvisquesiguiquevulguis a la imatge'npm)
+    newDeck.imgPath = req.file.url.split('/upload/').join('/upload/w_1000,h_900,c_crop/')//aqui has de fer split('upload').join('upload/elscanvisquesiguiquevulguis a la imatge'npm)
   }
   console.log(newDeck.imgPath)
   res.render("myPage/makeDeck", { newDeck });
