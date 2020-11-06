@@ -550,36 +550,81 @@
                 <p>&nbsp;</p>
             </div>
         <!-- /INNER DIVIDER -->
+</div>
 
-
-
-
-
-
-
-    <div class="col-12">
-        <h2>Search cards to add</h2>
-    </div>
-    <div class="col-12">
-        <div>
-            <form id="form" action="/makeDeck/search" method="POST">
-                <label for="name">Name:</label>
-                <input type="text" name="name" />
-                <label for="type">Type:</label>
-                <input type="text" name="type" />
-                <label for="subtype">Subtype:</label>
-                <input type="text" name="subtype" />
-                <label for="set_name">Set:</label>
-                <input type="text" name="set_name" />
-                <label for="legality">Legality:</label>
-                <input type="text" name="legality" />{{!-- change type text for predefined choices --}}
-                <label for="colors">Colors:</label>
-                <input type="text" name="colors" />
-                <button type="submit">Search</button>
+<div class="container-fluid">
+        <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+    <div class="row pattern-dark" >
+        <div class="container mw750">
+            <form id="form" class="contact-form search-form" action="/makeDeck/search" method="POST" style="margin-top:35px">
+            <div class="col-xs-11" style="padding-right:0px;max-width:657px">
+                <input style="margin-bottom:5px;" type="text" name="name" placeholder="Card name" onfocus="this.placeholder=''" onblur="this.placeholder='Card name'"/>
+            </div>
+            <div class="col-xs-1 text-center" style="padding-left:0px;">
+                <span onclick="showHide('advParams')" style="display:inline"class="ion-android-arrow-dropdown-circle search-dropdown"></span>
+            </div>
+            <!-- ===== START ADVANCED SEARCH FIELDS =====-->
+            <div class="col-xs-11" style="padding-right:0px; max-width:657px">
+                <div id='advParams' class='hide-element'>
+                <input  type="text" name="type" placeholder="Type" onfocus="this.placeholder=''" onblur="this.placeholder='Type'" style="margin-bottom:5px;"/>
+                <input  type="text" name="subtype" placeholder="Subtype" onfocus="this.placeholder=''" onblur="this.placeholder='Subtype'"style="margin-bottom:5px;"/>
+                <input  type="text" name="set_name" placeholder="Set Name" onfocus="this.placeholder=''" onblur="this.placeholder='Set Name'"style="margin-bottom:5px;"/>
+                {{!-- <input  type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'" style="margin-bottom:5px;"/> --}}
+                <select class="" name='legalities' id='legalities-select' style="margin-bottom:10px;">
+                    <option selected="">Legality</option>
+                    <option value="standard">Standard</option>
+                    <option value="future">Future</option>
+                    <option value="historic">Historic</option>
+                    <option value="pionner">Pionner</option>
+                    <option value="modern">Modern</option>
+                    <option value="legacy">Legacy</option>
+                    <option value="pauper">Pauper</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="penny">Penny</option>
+                    <option value="commander">Commander</option>
+                    <option value="brawl">Brawl</option>
+                    <option value="duel">Duel</option>
+                    <option value="oldschool">Oldschool</option>
+                </select>
+                <div class='colors-search-container'>
+                    <input hidden id='W' type="checkbox" name="colors[]" value="W"><label for='W'><img id='searchW' class='color-unchecked color-search' src='/img/mana-cost/W.png' alt='W' onclick="clicked('searchW')"></label>
+                    <input hidden id='G' type="checkbox" name="colors[]" value="G"><label for='G'><img id='searchG' class='color-unchecked color-search' src='/img/mana-cost/G.png' alt='G' onclick="clicked('searchG')"></label>
+                    <input hidden id='B' type="checkbox" name="colors[]" value="B"><label for='B'><img id='searchB' class='color-unchecked color-search' src='/img/mana-cost/B.png' alt='B' onclick="clicked('searchB')"></label>
+                    <input hidden id='R' type="checkbox" name="colors[]" value="R"><label for='R'><img id='searchR' class='color-unchecked color-search' src='/img/mana-cost/R.png' alt='R' onclick="clicked('searchR')"></label>
+                    <input hidden id='U' type="checkbox" name="colors[]" value="U"><label for='U'><img id='searchU' class='color-unchecked color-search' src='/img/mana-cost/U.png' alt='U' onclick="clicked('searchU')"></label>
+                </div>
+                </div>
+            </div> 
+            <!-- ===== END ADVANCED SEARCH FIELDS =====-->  
+            <div class="col-xs-11" style="padding-left:11px; padding-right:0px;max-width:678px">
+                <a href="javascript:$('#form').submit();"  class="button-game btn-search">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                        <span class="ion-search  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Search</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </div>
             </form>
         </div>
     </div>
-
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+    {{#if cardAdded}}
+    <div class="row" style="margin-top: 40px auto">
+        <!-- ADD CHECK ICON HERE -->
+        <p class="section-description" style="text-align:center">{{addedMessage}}</p>
+    </div>
+    <div class="container">
+        <div class="col-xs-12 items-container bottom-wrapper">
+        <p>&nbsp;</p>
+    </div>
+    </div>
+    {{/if}}
     {{#if cardAdded}}
     <div class="row">
         <div class="col-12 text-center p-3">
@@ -593,12 +638,20 @@
     </div>
     {{!-- add cards to maindeck, sidedeck or maybe --}}
     {{/if}}
-    <div class="row">
-        {{#each newDeck.results}}
-        {{> addToDeckCard this}}
-        {{/each}}
+    {{#if newDeck.results}}
+        <!-- SEARCH RESULTS -->
+        <div class="container" style="margin: 15px auto 70px auto">
+            {{#each newDeck.results}}
+                {{> addToDeckCard this}}
+            {{/each}}
+        </div>
+    {{else}}
+    <div class="container">
+        <div class="col-xs-12">
+             <h2>Search cards for your deck</h2>
+             <p class="section-description" style="margin-bottom:45px">You can use and combine different types of criteria: name, type, subtype, set, legality or color.</p>
+        </div>
     </div>
-</div>
-
-
+    {{/if}}
+    </div>
 
