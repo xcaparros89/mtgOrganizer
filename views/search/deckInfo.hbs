@@ -4,14 +4,14 @@
         <div class="row pattern-dark">
             <div class="col-xs-12">
                 <h2>{{deck.title}}</br><span class="innerheader" style="font-size: 20px;">by {{deck.authorName}}</span></h2>
-                {{#if isLogged}}
+                {{!-- {{#if isLogged}}
                 <p onclick="showHide('missing-cards')">Show missing cards in your collection</p>
                 <div id='missing-cards' class='hide-element'>
                 {{#each deck.missingCards}}
                     <span>{{string}}<a href="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}">Buy</a></span>
                 {{/each}}
                 </div>
-                {{/if}}
+                {{/if}} --}}
             </div>
         </div>
         <!-- ============== START BIG DIVIDER ============== -->
