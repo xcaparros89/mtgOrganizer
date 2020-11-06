@@ -1521,6 +1521,16 @@ p, textarea, input, select {
     font-size: 18px;
 }
 
+.contact-form .title{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+label.deck {
+    color: #71675b;
+    font-weight: 100;
+}
+
 .comment {
     font-size:18px;
 }
@@ -1529,6 +1539,7 @@ a.atext, p.atext {
     font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
     font-size:18px;
     color: #ad835a;
+    text-decoration: none;
     transition: all 0.5s ease-in-out;
 }
 
@@ -1536,6 +1547,26 @@ a.atext:hover {
     font-size:18px;
     text-decoration: none;
     color: #c4ae78;
+}
+
+a.atext:visited, p.atext:visited, a.atext:active, p.atext:active {
+    text-decoration:none;
+}
+
+a.nospace {
+    text-decoration:none;
+}
+
+span.ion-refresh, span.ion-arrow-swap, span.ion-trash-a {
+    color: #ad835a;
+    text-decoration:none;
+    transition: all 0.5s ease-in-out;
+}
+
+span.ion-refresh:hover, span.ion-arrow-swap:hover, span.ion-trash-a:hover {
+    color: #c4ae78;
+    text-decoration:none;
+    transition: all 0.5s ease-in-out;
 }
 
 .search-dropdown {
@@ -1590,7 +1621,7 @@ strong {
 
 
 @media (max-width: 768px){
-    .contact-form textarea, .comment, .atext, .atext:hover {
+    .contact-form textarea, .comment, .atext, .atext:hover, .contact-form .title {
         font-size: 16px;
     }
 }

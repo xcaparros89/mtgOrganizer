@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
-                <h2>{{newDeck.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deckOrg.author}}</span></h2>
+                <h2>{{newDeck.title}}</br><span class="innerheader" style="font-size: 20px;">by {{newDeck.author}}</span></h2>
             </div>
         </div>
         <!-- ============== START BIG DIVIDER ============== -->
@@ -13,31 +13,60 @@
         <!-- ============== END BIG DIVIDER ============== -->
         <!-- ===== START DESCRIPTION AND CARDS ===== -->
         <div class="container mw750">
-            <div class="col-xs-12" style="margin-top:30px">
-                <p>{{newDeck.description}}</p>
-            </div>
-            <!-- INNER DIVIDER -->
-            <div class="row">
+        <div class="col-xs-12" style="margin-top: 30px">
+                    <!-- INNER DIVIDER -->
             <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
                 <p>&nbsp;</p>
             </div>
+        <!-- /INNER DIVIDER -->
+            <form id="update-info" class="contact-form" action="/makeDeck/modify/text" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6"><label class="deck" for="title">Deck title</label><input class="title" name='title' type='text' value="{{newDeck.title}}" style="text-align:left;"></div>
+                <div class="col-xs-12 col-sm-6"><label class="deck" for="title">Deck custom image</label><input style="display:inline" type="file" name="photo"></div>
             </div>
-            <!-- /INNER DIVIDER -->
-        <div class="col-xs-12">
-        <form action="/makeDeck/modify/text" method="POST" enctype="multipart/form-data">
-            <input name='title' type='text' value="{{newDeck.title}}">
-            <input name='description' type='text' value="{{newDeck.description}}">
-            <p>Deck image:<span><input type="file" name="photo"></span></p>
-            <button type='submit'>Change</button>
-        </form>
-        <p>{{newDeck.mistakes}}</p>
+                <label class="deck" for="title">Description</label>
+                <textarea name="description" placeholder="" rows="4" cols="">{{newDeck.description}}</textarea>
+                    <div class="row text-center">
+                                <a href="javascript:$('#update-info').submit();"  class="button-game btn-search" style="max-width:180px;min-width:140px">
+                                    <span class="button-game-bg-left"></span>
+                                    <span class="button-game-bg-mid">
+                                        <span>Update</span>
+                                    </span> 
+                                    <span class="button-game-bg-right"></span>
+                                </a>
+                    </div>
+            </form>
+            <p>{{newDeck.mistakes}}</p>
         </div>
         <!-- INNER DIVIDER -->
-        <div class="row">
             <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
                 <p>&nbsp;</p>
             </div>
+        <!-- /INNER DIVIDER -->
+        <!-- ===== START SAVE BTN ===== -->
+        <div class="container mw750">
+                    <div class="col-xs-12 text-center">
+                        <form id="save"action="/makeDeck/save" method="GET">
+                            <div class="row text-center">
+                                <a href="javascript:$('#save').submit();"  class="button-game btn-search" style="max-width:322px;min-width:140px">
+                                    <span class="button-game-bg-left"></span>
+                                    <span class="button-game-bg-mid">
+                                        <span>Save</span>
+                                    </span> 
+                                    <span class="button-game-bg-right"></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                <div class="row">
+                    <hr class="invisible">
+                </div>
         </div>
+        <!-- ===== END SAVE BTN ===== -->
+        <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
         <!-- /INNER DIVIDER -->
         <!-- ===== START DECK CARDS HEADER =====-->
         <div class="col-xs-12">
@@ -56,28 +85,28 @@
             </div>
         {{#each newDeck.cards.main.creatures}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -100,28 +129,28 @@
             </div>
         {{#each newDeck.cards.main.artifacts}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -144,28 +173,28 @@
             </div>
         {{#each newDeck.cards.main.enchantments}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -188,28 +217,28 @@
             </div>
         {{#each newDeck.cards.main.instants}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -232,28 +261,28 @@
             </div>
         {{#each newDeck.cards.main.sorceries}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -276,28 +305,28 @@
             </div>
         {{#each newDeck.cards.main.planeswalkers}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -320,28 +349,28 @@
             </div>
         {{#each newDeck.cards.main.lands}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
-            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                     </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
             <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -364,28 +393,28 @@
             </div>
         {{#each newDeck.cards.main.others}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/main/{{card.id}}" method="POST" style="display:inline">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
+                    </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/main/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
-                    </a>
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/main/{{card.id}}" method="POST" style="display:inline">
-            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="main">Main deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -399,89 +428,39 @@
     </div>
     {{/if}}
     <!-- ===== END MAIN DECK ===== -->
-<div class="col-xs-12">
-    <div class="container mw750">
-        <div class="row">
-            <div class="col-xs-12">
-                <p class="innerTitle">Sideboard</p>
-                <hr class="invisible">
+    <!-- ===== START SIDEBOARD ===== -->
+        {{#if newDeck.cards.side}}
+        <div class="container mw750">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="innerTitle">Sideboard</p>
+                    <hr class="invisible">
+                </div>
             </div>
-
-
-
-{{!-- {{#each newDeck.cards.side}}
-            <form action="/makeDeck/modify/side/{{card.id}}" method="POST">
-                <input name='count' type="number" value={{count}} min="1" class="m-2"
-                    style="display: inline; max-width:40px">
-                <button type='submit'>Modify count</button>
-            </form>
-
-            <form action="/makeDeck/move/side/{{card.id}}" method="POST">
-                <label for="place">Add in:</label>
-                <select name="place" id="place">
-                    <option value="main">Main deck</option>
-                    <option value="undecided">Undecided</option>
-                </select>
-                <button type='submit'>Move</button>
-            </form>
-            <form action='/makeDeck/delete/side/{{card.id}}' method='GET'>
-                <button type='submit'>Delete</button>
-            </form>
-            {{/each}} --}}
-            <h3 class='col-12'>Undecided</h3>
-            {{#each newDeck.cards.undecided}}
-            <p>{{card.name}}</p>
-            <form action="/makeDeck/modify/undecided/{{card.id}}" method="POST">
-                <input name='count' type="number" value={{count}} min="1" class="m-2"
-                    style="display: inline; max-width:40px">
-                <button type='submit'>Modify count</button>
-            </form>
-            <form action="/makeDeck/move/undecided/{{card.id}}" method="POST">
-                <label for="place">Add in:</label>
-                <select name="place" id="place">
-                    <option value="main">Main deck</option>
-                    <option value="side">Side deck</option>
-                </select>
-                <button type='submit'>Move</button>
-            </form>
-            <form action='/makeDeck/delete/undecided/{{card.id}}' method='GET'>
-                <button type='submit'>Delete</button>
-            </form>
-            {{/each}}
-        </div>
-    <form action="/makeDeck/save" method="GET">
-        <button type='submit'>Save</button>
-    </form>
-
-
-
-
-
-
             {{#each newDeck.cards.side}}
             <div class="row" style="margin-bottom:2px">
-            <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
+            <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
                 <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
                 <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" style="display:inline" action="/makeDeck/modify/side/{{card.id}}" method="POST">
+                <form id="modify-count-{{card.id}}" class="contact-form-deck" style="display:inline" action="/makeDeck/modify/side/{{card.id}}" method="POST">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
-                        <a href="javascript:$('#modify-count-{{card.id}}').submit();">
-                            <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
-                        </a>
-            </form>
+                    <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                        <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
+                    </a>
+                </form>
+                <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/side/{{card.id}}' method='GET' style="display:inline">
-                    <a href="javascript:$('#delete-card-{{card.id}}').submit();">
-                        <span class="ion-trash-a" style="font-size:22px;"></span>
-                    </a>
+                <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                    <span class="ion-trash-a" style="font-size:22px;"></span>
+                </a>
             </form>
+            </div>
+            <div class="col-xs-12 col-sm-3" style="">
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/side/{{card.id}}" method="POST" style="display:inline">
-            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Main deck</option><option value="undecided">Undecided</option></select>
-                    <a href="javascript:$('#move-card-{{card.id}}').submit();">
-                        <span class="ion-arrow-swap" style="font-size:22px"></span>
-                    </a>
+            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="main">Main deck</option><option value="undecided">Undecided</option></select>
+                <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                    <span class="ion-arrow-swap" style="font-size:22px"></span>
+                </a>
             </form>
             </div>
             </div>
@@ -493,62 +472,133 @@
     <div class="row">
       <hr class="invisible">
     </div>
-</div>
-
-
-    <form id="save"action="/makeDeck/save" method="GET">
-            <div class="col-xs-12" style="padding-left:0px; padding-right:0px;max-width:350px">
-                <a href="javascript:$('#save').submit();"  class="button-game btn-search">
-                    <span class="button-game-bg-left"></span>
-                    <span class="button-game-bg-mid">
-                        <span>Save</span>
-                    </span> 
-                    <span class="button-game-bg-right"></span>
-                </a>
+    {{/if}}
+<!-- ===== END SIDEBOARD ===== -->
+<!-- ===== START UNDECIDED ===== -->
+    {{#if newDeck.cards.undecided}}
+    <div class="container mw750">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="innerTitle">Undecided</p>
+                <hr class="invisible">
             </div>
-    </form>
-
-
-</div>
-<div class="col-12">
-    <h2>Card search</h2>
-</div>
-<div class="col-12">
-    <div>
-        <form id="form" action="/makeDeck/search" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" name="name" />
-            <label for="type">Type:</label>
-            <input type="text" name="type" />
-            <label for="subtype">Subtype:</label>
-            <input type="text" name="subtype" />
-            <label for="set_name">Set:</label>
-            <input type="text" name="set_name" />
-            <label for="legality">Legality:</label>
-            <input type="text" name="legality" />{{!-- change type text for predefined choices --}}
-            <label for="colors">Colors:</label>
-            <input type="text" name="colors" />
-            <button type="submit">Search</button>
+        </div>
+        {{#each newDeck.cards.undecided}}
+        <div class="row" style="margin-bottom:2px">
+        <div class="col-xs-12 col-sm-9 features-item" style="margin-bottom:10px">
+            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer;">
+            <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
+            <form id="modify-count-{{card.id}}" class="contact-form-deck" style="display:inline" action="/makeDeck/modify/undecided/{{card.id}}" method="POST">
+                <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
+                <a href="javascript:$('#modify-count-{{card.id}}').submit();" class="nospace">
+                    <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
+                </a>
+            </form>
+            <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+        <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/undecided/{{card.id}}' method='GET' style="display:inline">
+            <a href="javascript:$('#delete-card-{{card.id}}').submit();">
+                <span class="ion-trash-a" style="font-size:22px;"></span>
+            </a>
         </form>
+        </div>
+        <div class="col-xs-12 col-sm-3" style="">
+        <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/undecided/{{card.id}}" method="POST" style="display:inline">
+        <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="main">Main deck</option><option value="side">Sideboard</option></select>
+            <a href="javascript:$('#move-card-{{card.id}}').submit();">
+                <span class="ion-arrow-swap" style="font-size:22px"></span>
+            </a>
+        </form>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12"><hr class="solid" style=""></div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="row">
+        <hr class="invisible">
+    </div>
+    {{/if}}
+<!-- ===== END UNDECIDED ===== -->
+        <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+        <!-- /INNER DIVIDER -->
+    <!-- ===== START SAVE BTN ===== -->
+    <div class="container mw750">
+                <div class="col-xs-12 text-center">
+                    <form id="save"action="/makeDeck/save" method="GET">
+                        <div class="row text-center">
+                            <a href="javascript:$('#save').submit();"  class="button-game btn-search" style="max-width:322px;min-width:140px">
+                                <span class="button-game-bg-left"></span>
+                                <span class="button-game-bg-mid">
+                                    <span>Save</span>
+                                </span> 
+                                <span class="button-game-bg-right"></span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            <div class="row">
+                <hr class="invisible">
+            </div>
+    </div>
+    <!-- ===== END SAVE BTN ===== -->
+        <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+        <!-- /INNER DIVIDER -->
+
+
+
+
+
+
+
+    <div class="col-12">
+        <h2>Card search</h2>
+    </div>
+    <div class="col-12">
+        <div>
+            <form id="form" action="/makeDeck/search" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" name="name" />
+                <label for="type">Type:</label>
+                <input type="text" name="type" />
+                <label for="subtype">Subtype:</label>
+                <input type="text" name="subtype" />
+                <label for="set_name">Set:</label>
+                <input type="text" name="set_name" />
+                <label for="legality">Legality:</label>
+                <input type="text" name="legality" />{{!-- change type text for predefined choices --}}
+                <label for="colors">Colors:</label>
+                <input type="text" name="colors" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    {{#if cardAdded}}
+    <div class="row">
+        <div class="col-12 text-center p-3">
+            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <p class="d-inline">{{addedMessage}}</p>
+        </div>
+    </div>
+    {{!-- add cards to maindeck, sidedeck or maybe --}}
+    {{/if}}
+    <div class="row">
+        {{#each newDeck.results}}
+        {{> addToDeckCard this}}
+        {{/each}}
     </div>
 </div>
-</div>
-{{#if cardAdded}}
-<div class="row">
-    <div class="col-12 text-center p-3">
-        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-        </svg>
-        <p class="d-inline">{{addedMessage}}</p>
-    </div>
-</div>
-{{!-- add cards to maindeck, sidedeck or maybe --}}
-{{/if}}
-<div class="row">
-    {{#each newDeck.results}}
-    {{> addToDeckCard this}}
-    {{/each}}
-</div>
-</div>
+
+
+
