@@ -134,7 +134,7 @@ background-image: url(../img/dark_leather.png); }
 }
 
 .pattern-evil {
-    background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url(../img/jumbotron.jpg);
+    background-image: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)), url(../img/jumbotron.jpg);
     background-size: cover;
     background-position: center center;
 }
@@ -158,7 +158,7 @@ background-image: url(../img/dark_leather.png); }
 }
 
 .pattern-rattleclaw {
-    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/rattleclaw.jpg); 
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/rattleclaw.jpg); 
     background-size: cover;
     background-position: center center;
 }
