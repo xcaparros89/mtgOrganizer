@@ -3,15 +3,15 @@
     <div class="container-fluid">
         <div class="row pattern-dark">
             <div class="col-xs-12">
-                <h2>{{deck.title}}</br><span class="innerheader" style="font-size: 20px;">&nbsp;&nbsp;by {{deck.authorName}}</span></h2>
+                <h2>{{deck.title}}</br><span class="innerheader" style="font-size: 20px;">by {{deck.authorName}}</span></h2>
                 {{#if isLogged}}
-<p onclick="showHide('missing-cards')">Show missing cards in your collection</p>
-<div id='missing-cards' class='hide-element'>
-{{#each deck.missingCards}}
-    <span>{{string}}<a href="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}">Buy</a></span>
-{{/each}}
-</div>
-{{/if}}
+                <p onclick="showHide('missing-cards')">Show missing cards in your collection</p>
+                <div id='missing-cards' class='hide-element'>
+                {{#each deck.missingCards}}
+                    <span>{{string}}<a href="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}">Buy</a></span>
+                {{/each}}
+                </div>
+                {{/if}}
             </div>
         </div>
         <!-- ============== START BIG DIVIDER ============== -->
@@ -132,13 +132,13 @@
             <!-- ===== END MAIN DECK ===== -->
             <!-- ===== START SIDEBOARD ===== -->
             {{#if deck.sideboard}}
-            <div class="col-xs-12"><p class="innerTitle">Sideboard</p></div>
+            <div class="col-xs-12" style="margin-top:15px;"><p class="innerTitle">Sideboard</p></div>
             {{#each deck.sideboard}}
             <div class="col-xs-12 col-sm-6 features-item">
-            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
-                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </span>
+                <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
+                    <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
+                    <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+                </span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>

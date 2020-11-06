@@ -57,7 +57,7 @@ z-index: 2; }
 html, body {
 color: #383838;
 font-size: 18px;
-font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
+font-family: "Cinzel Decorative", "Palatino Light", "Times, Times New Roman", Georgia, serif;
 font-weight: 300;
 text-rendering: optimizeLegibility; }
 @media (min-width: 768px) {
@@ -122,13 +122,13 @@ background-image: url(../img/dark_leather.png); }
 }
 
 .pattern-chandra {
-    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/chandra.jpg); 
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/chandra.jpg); 
     background-size: cover;
     background-position: center center;
 }
 
 .pattern-dragon {
-    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/dragon.jpg); 
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/dragon.jpg); 
     background-size: cover;
     background-position: center center;
 }
@@ -170,7 +170,7 @@ background-image: url(../img/dark_leather.png); }
 }
 
 .pattern-soldier {
-    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/soldier.jpg); 
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/soldier.jpg); 
     background-size: cover;
     background-position: center center;
 }
@@ -1378,7 +1378,7 @@ ion-icon {
     font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
     font-weight: 300;
     text-rendering: optimizeLegibility;
-    opacity: .6;
+    opacity: .35;
     margin-top:2.5vh;
 }
 
@@ -1521,6 +1521,16 @@ p, textarea, input, select {
     font-size: 18px;
 }
 
+.contact-form .title{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+label.deck {
+    color: #71675b;
+    font-weight: 100;
+}
+
 .comment {
     font-size:18px;
 }
@@ -1529,6 +1539,7 @@ a.atext, p.atext {
     font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
     font-size:18px;
     color: #ad835a;
+    text-decoration: none;
     transition: all 0.5s ease-in-out;
 }
 
@@ -1536,6 +1547,26 @@ a.atext:hover {
     font-size:18px;
     text-decoration: none;
     color: #c4ae78;
+}
+
+a.atext:visited, p.atext:visited, a.atext:active, p.atext:active {
+    text-decoration:none;
+}
+
+a.nospace {
+    text-decoration:none;
+}
+
+span.ion-refresh, span.ion-arrow-swap, span.ion-trash-a {
+    color: #ad835a;
+    text-decoration:none;
+    transition: all 0.5s ease-in-out;
+}
+
+span.ion-refresh:hover, span.ion-arrow-swap:hover, span.ion-trash-a:hover {
+    color: #c4ae78;
+    text-decoration:none;
+    transition: all 0.5s ease-in-out;
 }
 
 .search-dropdown {
@@ -1590,7 +1621,7 @@ strong {
 
 
 @media (max-width: 768px){
-    .contact-form textarea, .comment, .atext, .atext:hover {
+    .contact-form textarea, .comment, .atext, .atext:hover, .contact-form .title {
         font-size: 16px;
     }
 }
@@ -1679,8 +1710,8 @@ p.shadow:hover {
 }
 
 .colors-search-container img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 #legalities-select, #favourite-color{
@@ -1689,4 +1720,61 @@ p.shadow:hover {
         /* for Safari, Chrome, Opera */ 
         -webkit-appearance: none; 
         color: #967755;
+}
+
+.contact-form-deck input {
+    border-radius: 0px;
+    width: 100%;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
+}
+
+.contact-form-deck textarea {
+    border-radius: 0px;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
+    min-height: 7rem;
+    min-width: 100%;
+}
+
+.contact-form-deck select {
+    border-radius: 0px;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
 }
