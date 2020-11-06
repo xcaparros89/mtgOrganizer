@@ -65,12 +65,19 @@ $(document).ready(function() {
         
         // Manage FORMS
         var addCardForm = $('#addCardForm');
+        var addCardForm2 = $('#addCardForm2');
+  
+
+
         var removeCardForm = $('#removeCardForm');
         $(addCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set add to collection form action
+        $(addCardForm2).attr('action', '/search/cardForDeck/'+dataModel.data('id')); //Set add to collection form action
+        // $(addCardToDeckForm).attr('action', '/search/cardForDeck/'+dataModel.data('id')); //Set add to deck form action
         $(removeCardForm).attr('action', '/myCollection/modify/'+dataModel.data('id')); //Set remove to collection form action
 
         var buyCard = $('#buy-card');
         var inputN = $('#owned');
+
 
         inputN.attr('value', dataModel.data('count'));
 
