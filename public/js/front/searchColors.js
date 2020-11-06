@@ -18,3 +18,15 @@ function showHide(el){
         advParams.classList.add('hide-element');
     }
 }
+
+function changeArrow(){
+    let advArrow = document.getElementById('adv-arrow')
+        if(advArrow.classList.contains('ion-android-arrow-dropleft-circle')){
+            advArrow.classList.remove('ion-android-arrow-dropleft-circle');
+            advArrow.classList.add('ion-android-arrow-dropdown-circle');
+        }else{
+            advArrow.classList.remove('ion-android-arrow-dropdown-circle');
+            advArrow.classList.add('ion-android-arrow-dropleft-circle');
+        }
+        showHide('advParams')
+}

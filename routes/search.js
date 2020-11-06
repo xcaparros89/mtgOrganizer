@@ -20,32 +20,15 @@ router.post("/search/card", async (req, res, next) => {
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
-  const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
-  const paramsObj = {};
-  if (name) paramsObj.name = new RegExp(name.trim(), "i");
-  if (set_name) paramsObj.set_name = new RegExp(set_name.trim(), "i");
-  if (rarity) paramsObj.set_name = new RegExp(rarity.trim(), "i");
-  if (legality) paramsObj[`legalities.${legality}`] = "legal";
-  if (colors) {
-    let colorsArr = colors
-      .trim()
-      .split(",")
-      .join("")
-      .split(" ")
-      .map((color) => {
-        if (color === "red" || color === "Red" || color === "RED") return "R";
-        if (color === "blue" || color === "Blue" || color === "BLUE")
-          return "U";
-        if (color === "white" || color === "White" || color === "WHITE")
-          return "W";
-        if (color === "green" || color === "Green" || color === "GREEN")
-          return "G";
-        if (color === "black" || color === "Black" || color === "BLACK")
-          return "B";
-      })
-      .sort();
-    paramsObj.colors = colorsArr;
-  }
+  const { name, set_name, rarity, legality, type, subtype} = req.body;
+  console.log(req.body)
+  let colors=req.body['colors[]'];
+  let paramsObj = [];
+  if (name) paramsObj.push({name: new RegExp(name.trim(), "i")})
+  if (set_name) paramsObj.push({set_name : new RegExp(set_name.trim(), "i")});
+  if (rarity) paramsObj.push({set_name : new RegExp(rarity.trim(), "i")});
+  if (legality != 'Legality') paramsObj.push({[`legalities.${legality}`] : "legal"});
+  if(colors)typeof colors === 'object'? colors.forEach(col=>paramsObj.push({colors: {$in: [col]}})) : paramsObj.push({colors: {$in: [colors]}});
   if (type || subtype) {
     let regex = "";
     let totalTypeArr = [];
@@ -57,12 +40,11 @@ router.post("/search/card", async (req, res, next) => {
       ];
     totalTypeArr.forEach((el) => (regex += `(?=.*\\b${el}\\b)`));
     let regex2 = new RegExp(regex + ".*", "gi");
-    paramsObj.type_line = regex2;
+    paramsObj.push({type_line: regex2});
   }
-
     try {
       console.log('paramsObj', paramsObj)
-      resultSearch = await Card.find(paramsObj);
+      resultSearch = await Card.find({$and: [...paramsObj]});
       if(req.session.currentUser) {
         res.locals.isLogged = true;
       }

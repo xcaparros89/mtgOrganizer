@@ -74,7 +74,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
-
+ 
   //My cards
   router.get("/myCollection", async function (req, res, next) {
     if(req.session.currentUser) res.locals.isLogged = true;
@@ -98,6 +98,71 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     res.redirect('/myCollection');
     } catch(error){console.log(error);}
   });
+
+  router.post("/myCollection/search", async (req, res, next) => {
+    if(req.session.currentUser) {
+      res.locals.isLogged = true;
+    }
+    let userPopulated = await User.findById(req.session.currentUser._id).populate('userCards._id');
+    let userCards = userPopulated.userCards;
+    const { name, legality} = req.body;
+    let colors=req.body['colors[]'] 
+      try {
+        if(name){
+          let paramsName = new RegExp(name.trim(), "i");
+          userCards = userCards.filter(card=>{
+            return paramsName.test(card._id.name)
+          })
+        }
+        if(legality != 'Legality'){
+          userCards = userCards.filter(card=>{
+            return card._id.legalities[legality] === 'legal'
+          })
+        }
+
+        if(colors){
+          const paramsColors = [];
+          typeof colors === 'object'? colors.forEach(col=>paramsColors.push(col)) : paramsColors.push(colors);
+          userCards = userCards.filter(card=>{
+            let includes = true;
+            paramsColors.forEach(col=>{if(!card._id.colors.includes(col)) includes = false;});
+            return includes;
+        })
+      }
+      
+        if(req.session.currentUser) {
+          res.locals.isLogged = true;
+        }
+        userCards.forEach(card => {
+          card.logged = res.locals.isLogged;
+        });
+     
+        res.render("myPage/myCollection", { userCards });
+      } catch (err) {
+        console.log(err);
+      }
+  });
+  
+  router.post("/myCollection/search/:id", async (req, res, next) => {
+    if(req.session.currentUser) {
+      res.locals.isLogged = true;
+    }
+      try {
+        req.session.currentUser = await User.findById(req.session.currentUser._id);
+        collection = [...req.session.currentUser.userCards.filter(card=>card._id != req.params.id), {_id:req.params.id, count: req.body.owned}];
+        await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: collection});
+        const card = await Card.findOne({_id: req.params.id})
+        res.locals.addedMessage = req.body.owned + " " + card.name + " has been added to your collection."
+        res.locals.cardAdded = true;
+        res.render("myPage/myCollection", { resultSearch });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  
+
+
+
 
 //Make deck
 let newDeck = {};
@@ -445,7 +510,6 @@ router.get("/myDecks", async function (req, res, next) {
 router.post('/myDecks/modify/:id', async function (req,res,next){
   currentDeck = req.params.id;
   let myDeck = await Deck.findById(req.params.id).populate('mainCards.creatures.card').populate('mainCards.lands.card').populate('mainCards.planeswalkers.card').populate('mainCards.instants.card').populate('mainCards.enchantments.card').populate('mainCards.sorceries.card').populate('mainCards.artifacts.card').populate('mainCards.others.card').populate('sideboard.card');
-  console.log(newDeck)
   let mainCards = {creatures:[],instants:[],sorceries:[],enchantments:[],lands:[],planeswalkers:[],artifacts:[],others:[]}; 
   let sideboard = [];
   myDeck.mainCards.creatures.forEach(cardObj=>{mainCards.creatures.push({card:cardObj.card, count:cardObj.count})});
@@ -457,7 +521,7 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
   myDeck.mainCards.artifacts.forEach(cardObj=>{mainCards.artifacts.push({card:cardObj.card, count:cardObj.count})});
   myDeck.mainCards.others.forEach(cardObj=>{mainCards.others.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
-  newDeck = {title:myDeck.title, description:myDeck.description, imgPath:myDeck.imgPath, cards: {main:mainCards, side:sideboard, undecided:[]}};
+  newDeck = {title:myDeck.title, description:myDeck.description, imgPath:myDeck.imgPath, cards: {main:mainCards, side:sideboard, undecided:[]}, author:req.session.currentUser.username};
   res.render('myPage/makeDeck', {newDeck});
 });
 

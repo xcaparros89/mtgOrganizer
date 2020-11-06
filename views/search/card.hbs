@@ -16,7 +16,7 @@
                 <input style="margin-bottom:5px;" type="text" name="name" placeholder="Card name" onfocus="this.placeholder=''" onblur="this.placeholder='Card name'"/>
             </div>
             <div class="col-xs-1 text-center" style="padding-left:0px;">
-                <span onclick="showHide('advParams')" style="display:inline"class="ion-android-arrow-dropdown-circle search-dropdown"></span>
+                <span id='adv-arrow' onclick="changeArrow()" style="display:inline"class="ion-android-arrow-dropleft-circle search-dropdown"></span>
             </div>
             <!-- ===== START ADVANCED SEARCH FIELDS =====-->
             <div class="col-xs-11" style="padding-right:0px; max-width:657px">
@@ -25,7 +25,7 @@
                 <input  type="text" name="subtype" placeholder="Subtype" onfocus="this.placeholder=''" onblur="this.placeholder='Subtype'"style="margin-bottom:5px;"/>
                 <input  type="text" name="set_name" placeholder="Set Name" onfocus="this.placeholder=''" onblur="this.placeholder='Set Name'"style="margin-bottom:5px;"/>
                 {{!-- <input  type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'" style="margin-bottom:5px;"/> --}}
-                <select class="" name='legalities' id='legalities-select' style="margin-bottom:10px;">
+                <select class="" name='legality' id='legalities-select' style="margin-bottom:10px;">
                     <option selected="">Legality</option>
                     <option value="standard">Standard</option>
                     <option value="future">Future</option>
