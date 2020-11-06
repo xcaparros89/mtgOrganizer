@@ -131,21 +131,19 @@
             {{/if}}
             <!-- ===== END MAIN DECK ===== -->
             <!-- ===== START SIDEBOARD ===== -->
-            {{#if deck.sideboard.lands}}
-            <div class="col-xs-12"><p class="innerTitle">Sideboard</p></div>
-            {{#if deck.sideboard.creatures}}
-            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
-            {{#each deck.sideboard.creatures}}
+            {{#if deck.sideboard}}
+            <div class="col-xs-12" style="margin-top:15px;"><p class="innerTitle">Sideboard</p></div>
+            {{#each deck.sideboard}}
             <div class="col-xs-12 col-sm-6 features-item">
-            <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
-                <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
-                <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
-            </span>
+                <span data-toggle="modal" data-target="#shop-modal" style="cursor: pointer; ">
+                    <img src="{{card.image_uris.png}}" style="display:none" class="features-img" data-id="{{card._id}}" data-name="{{card.name}}" data-img="{{card.image_uris.png}}" data-type="{{card.type_line}}" data-power="{{card.power}}" data-toughness="{{card.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{card.name}}" data-setname="{{card.set_name}}">
+                    <p style="display:inline" class="shadow"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+                </span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deck.sideboard.artifacts}}
+            {{!-- {{#if deck.sideboard.artifacts}}
             <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
             {{#each deck.sideboard.artifacts}}
             <div class="col-xs-12 col-sm-6 features-item">
@@ -228,8 +226,7 @@
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
-            {{/if}}
-            {{/if}}
+            {{/if}} --}}
             <!--- ===== END SIDEBOARD ===== -->
         </div>
         <!-- ===== // END DESCRIPTION AND CARDS ===== -->

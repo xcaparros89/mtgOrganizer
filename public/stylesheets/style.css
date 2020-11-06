@@ -57,7 +57,7 @@ z-index: 2; }
 html, body {
 color: #383838;
 font-size: 18px;
-font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
+font-family: "Cinzel Decorative", "Palatino Light", "Times, Times New Roman", Georgia, serif;
 font-weight: 300;
 text-rendering: optimizeLegibility; }
 @media (min-width: 768px) {
@@ -1689,4 +1689,61 @@ p.shadow:hover {
         /* for Safari, Chrome, Opera */ 
         -webkit-appearance: none; 
         color: #967755;
+}
+
+.contact-form-deck input {
+    border-radius: 0px;
+    width: 100%;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
+}
+
+.contact-form-deck textarea {
+    border-radius: 0px;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
+    min-height: 7rem;
+    min-width: 100%;
+}
+
+.contact-form-deck select {
+    border-radius: 0px;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
 }

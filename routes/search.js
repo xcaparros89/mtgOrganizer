@@ -220,6 +220,7 @@ router.get('/search/deck/:id', async (req, res, next)=>{
   console.log(deck.missingCards)
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
+  console.log('Hello ', deck.sideboard)
   res.render('search/deckInfo', {deck});
 });
 
