@@ -406,6 +406,58 @@
                 <p class="innerTitle">Sideboard</p>
                 <hr class="invisible">
             </div>
+
+
+
+{{!-- {{#each newDeck.cards.side}}
+            <form action="/makeDeck/modify/side/{{card.id}}" method="POST">
+                <input name='count' type="number" value={{count}} min="1" class="m-2"
+                    style="display: inline; max-width:40px">
+                <button type='submit'>Modify count</button>
+            </form>
+
+            <form action="/makeDeck/move/side/{{card.id}}" method="POST">
+                <label for="place">Add in:</label>
+                <select name="place" id="place">
+                    <option value="main">Main deck</option>
+                    <option value="undecided">Undecided</option>
+                </select>
+                <button type='submit'>Move</button>
+            </form>
+            <form action='/makeDeck/delete/side/{{card.id}}' method='GET'>
+                <button type='submit'>Delete</button>
+            </form>
+            {{/each}} --}}
+            <h3 class='col-12'>Undecided</h3>
+            {{#each newDeck.cards.undecided}}
+            <p>{{card.name}}</p>
+            <form action="/makeDeck/modify/undecided/{{card.id}}" method="POST">
+                <input name='count' type="number" value={{count}} min="1" class="m-2"
+                    style="display: inline; max-width:40px">
+                <button type='submit'>Modify count</button>
+            </form>
+            <form action="/makeDeck/move/undecided/{{card.id}}" method="POST">
+                <label for="place">Add in:</label>
+                <select name="place" id="place">
+                    <option value="main">Main deck</option>
+                    <option value="side">Side deck</option>
+                </select>
+                <button type='submit'>Move</button>
+            </form>
+            <form action='/makeDeck/delete/undecided/{{card.id}}' method='GET'>
+                <button type='submit'>Delete</button>
+            </form>
+            {{/each}}
+        </div>
+    <form action="/makeDeck/save" method="GET">
+        <button type='submit'>Save</button>
+    </form>
+
+
+
+
+
+
             {{#each newDeck.cards.side}}
             <div class="row" style="margin-bottom:2px">
             <div class="col-xs-12 col-sm-8 features-item" style="margin-bottom:10px">
@@ -414,7 +466,7 @@
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             <div class="col-xs-12 col-sm-4" style="">
-            <form id="modify-count-{{card.id}}" class="contact-form-deck" action="/makeDeck/modify/side/{{card.id}}" method="POST" style="display:inline">
+            <form id="modify-count-{{card.id}}" class="contact-form-deck" style="display:inline" action="/makeDeck/modify/side/{{card.id}}" method="POST">
                     <input name='count' type="number" value={{count}} min="1" class="m-2" style="display: inline; vertical-align: middle; width:40px">
                         <a href="javascript:$('#modify-count-{{card.id}}').submit();">
                             <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
@@ -426,7 +478,7 @@
                     </a>
             </form>
             <form id="move-card-{{card.id}}" class="contact-form-deck" action="/makeDeck/move/side/{{card.id}}" method="POST" style="display:inline">
-            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Side deck</option><option value="undecided">Undecided</option></select>
+            <select name="place" id="place" style="display:inline; vertical-align:middle; height:30px"><option value="side">Main deck</option><option value="undecided">Undecided</option></select>
                     <a href="javascript:$('#move-card-{{card.id}}').submit();">
                         <span class="ion-arrow-swap" style="font-size:22px"></span>
                     </a>
