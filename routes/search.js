@@ -7,6 +7,7 @@ const colors = require('colors');
 var router = express.Router();
 var filter = new Filter();
 let resultSearch = '';
+let types = ['creatures', 'lands', 'enchantments', 'sorceries', 'planeswalkers', 'instants', 'artifacts']
 
 //search cards
 router.get("/search/card", function (req, res, next) {
@@ -21,7 +22,6 @@ router.post("/search/card", async (req, res, next) => {
     res.locals.isLogged = true;
   }
   const { name, set_name, rarity, legality, type, subtype} = req.body;
-  console.log(req.body)
   let colors=req.body['colors[]'];
   let paramsObj = [];
   if (name) paramsObj.push({name: new RegExp(name.trim(), "i")})
@@ -43,7 +43,6 @@ router.post("/search/card", async (req, res, next) => {
     paramsObj.push({type_line: regex2});
   }
     try {
-      console.log('paramsObj', paramsObj)
       resultSearch = await Card.find({$and: [...paramsObj]});
       if(req.session.currentUser) {
         res.locals.isLogged = true;
@@ -117,92 +116,22 @@ router.get('/search/deck/:id', async (req, res, next)=>{
     let missingCards =[];
     res.locals.isLogged = true;
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
-    deck.mainCards.creatures.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+    types.forEach(type=>{
+      deck.mainCards[type].forEach(cardObj=>{
+        let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+        if(userCard){
+          if(userCard.count - cardObj.count < 0){
+            missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+          }
+        } else{
+          missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
         }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.instants.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.sorceries.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.enchantments.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.artifacts.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.planeswalkers.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.lands.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });
-    deck.mainCards.others.forEach(cardObj=>{
-      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
-      if(userCard){
-        if(userCard.count - cardObj.count < 0){
-          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
-        }
-      } else{
-        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
-      }
-    });  
+      })
+    })
   deck.missingCards = missingCards.length === 0 ? [{string:'You own all the cards of this deck'}] : missingCards;
   }
-  console.log(deck.missingCards)
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
-  console.log('Hello ', deck.sideboard)
   res.render('search/deckInfo', {deck});
 });
 
