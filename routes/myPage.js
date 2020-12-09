@@ -20,7 +20,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     }
   });
   
-  //Profile
+  // VIEW PROFILE
   router.get("/profile", function (req, res, next) {
     if(req.session.currentUser) {
       res.locals.isLogged = true;
@@ -35,6 +35,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     res.render("myPage/modifyProfile", {user:req.session.currentUser});
   })
 
+  //MODIFY PROFILE
   router.post("/modifyProfile", uploadCloud.single("photo"), async function (req, res, next) {
     let imgPath = req.session.currentUser.imgPath;
     let imgName = req.session.currentUser.imgName;
@@ -42,7 +43,6 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
       imgPath = req.file.url;
       imgName = req.file.originalname;
     }
-    console.log(req.file)
     const userEmail = await User.findOne({ email: req.body.email });
     if (userEmail !== null && userEmail._id != req.session.currentUser._id) {
       res.locals.error = 'The email already exists!'
@@ -75,7 +75,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   })
 
  
-  //My cards
+  //MY CARDS
   router.get("/myCollection", async function (req, res, next) {
     if(req.session.currentUser) res.locals.isLogged = true;
     try {
@@ -87,7 +87,6 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   });
 
   router.post('/myCollection/modify/:id', async function(req, res, next){
-  //router.post('/myCollection/modify/:id', async function(req, res, next){
     if(req.session.currentUser)res.locals.isLogged = true;
     try{
     let userCards = req.session.currentUser.userCards;
@@ -159,12 +158,8 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
         console.log(err);
       }
     });
-  
 
-
-
-
-//Make deck
+//MY DECKS
 let newDeck = {};
 let currentDeck; //used when modifiying decks
 router.post('/makeDeck', function (req,res,next){
@@ -471,7 +466,7 @@ router.get('/makeDeck/save',async (req,res,next)=>{
       res.redirect(`/search/deck/${id}`);
     }else{
       console.log(newDeck);
-      let newImgPath = newDeck.imgPath? newDeck.imgPath : 'img/defaultDeck.png';
+      let newImgPath = newDeck.imgPath? newDeck.imgPath : 'https://res.cloudinary.com/dysghv9yf/image/upload/v1604610846/magic/green-blue-deck.jpg';
       await Deck.create({ 
           title: newDeck.title,
           description: newDeck.description,
@@ -532,14 +527,12 @@ router.get("/myDecks/copy/:id", async function (req, res, next) {
   let copiedDeck = await Deck.findById(req.params.id);
   copiedDeck = JSON.stringify(copiedDeck);
   let newDeck = JSON.parse(copiedDeck);
-  newMainCards = newDeck.mainCards.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
-  newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
-  console.log('here', newMainCards, newSideboard);
+  let newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
   await Deck.create({
     title: 'COPY OF: ' + newDeck.title,
     description: newDeck.description,
     authorId: req.session.currentUser._id,
-    mainCards: newMainCards,
+    mainCards: newDeck.mainCards,
     sideboard: newSideboard,
     legalities: newDeck.legalities,
     colors: newDeck.colors,

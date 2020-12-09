@@ -27,7 +27,7 @@
     "mtgsdk": "^0.4.3",
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^2.2.1",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.6",
     "serve-favicon": "^2.5.0"
   }
 }

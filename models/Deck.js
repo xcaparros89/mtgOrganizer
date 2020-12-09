@@ -5,7 +5,7 @@ const deckSchema = new Schema(
   {
     title: {type: String, require: true},
     description: {type: String, require: true},
-    imgPath: {type: String, default: 'img/defaultDeck.png'},
+    imgPath: {type: String, default: 'https://res.cloudinary.com/dysghv9yf/image/upload/v1604610846/magic/green-blue-deck.jpg'},
     imgName: {type:String, default:'default'},
     authorId: {type: String, require: true},
     mainCards: 
