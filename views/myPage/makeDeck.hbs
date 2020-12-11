@@ -94,8 +94,7 @@
                             <span class="ion-refresh" style="font-size:22px; padding-top:8px" style=""></span>
                         </a>
                     </form>
-                    <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}
-                </span>
+                    <p style="display:inline;" class="shadow">{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             <form class="" id="delete-card-{{card.id}}" action='/makeDeck/delete/place/main/type/creatures/id/{{card.id}}' method='GET' style="display:inline">
                 <a href="javascript:$('#delete-card-{{card.id}}').submit();">
                     <span class="ion-trash-a" style="font-size:22px;"></span>
