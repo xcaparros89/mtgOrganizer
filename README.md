@@ -2,6 +2,7 @@
 
 # Description
 This page is used to manage your magic decks and find new decks and cards
+Uses Handlebards, CSS, Bootstrap, JS, JQuery and it's responsive.
 
 # MVP
 Home page, 
@@ -19,10 +20,6 @@ Resposive page
 Cards market,
 Events (tournaments...),
 Basic version of the game
-
-# Wireframes
-<img src='project2/public/images/wireframe.png'>
-https://wireframepro.mockflow.com/view/Ma9f049c5e2ef4f1452e77725e0e4fb091602166447826
 
 # APIs
 https://api.magicthegathering.io
@@ -98,7 +95,5 @@ GitHub
 https://github.com/xcaparros89/Project2
 
 Heroku
-...
+https://mtg-organizer-deck-builder.herokuapp.com/
 
-Trello
-https://trello.com/invite/b/QA7dhTFu/48c335959060ca3fd50a64b7a025937d/m2-proyecto
