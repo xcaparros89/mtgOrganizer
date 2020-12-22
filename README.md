@@ -24,15 +24,15 @@ Personal page
 Deck info page
 Card info page
 
-# Backlog
+## Backlog
 Cards market,
 Events (tournaments...),
 Basic version of the game
 
-# APIs
+## APIs
 https://api.magicthegathering.io
 
-# Structure
+## Structure
 \
 project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|── bin\
@@ -73,11 +73,11 @@ project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|── package.json\
 README.md
 \
-# Routes
+## Routes
 
 MethodRouteDescriptionRequest - BodyGET/Main page route. Renders home index view.GET/loginRenders login form view.POST/loginSends Login form data to the server.{ username, password }GET/signupRenders signup form view.POST/signupSends SignUp info to the server and creates user in the DB.{ name, email, password }GET/randomRenders to the random card pageGET/userPriv route. Renders user view and list projects and cardsGET/project/create/Priv route. Renders create projects form.POST/project/create/:_idPriv route. Sends new projects info to server, updates DB.{ projectname, description}GET/project/edit/Priv route. Renders edit projects form.PUT/project/edit/:_idPriv route. Sends edit projects info to server, updates DB.{ projectname, description }POST/card/create/Priv route. Sends new cards info to server, updates DB.{ description }GET/card/create/Priv route. Renders create cards form.DELETE/projectsPriv route. Deletes user project from DB.DELETE/cardsPriv route. Deletes user card from DB.GET/logoutPriv route. Destroy current session. Renders home index view.
 
-# Models
+## Models
 User model\
 &nbsp;&nbsp;&nbsp;&nbsp;{\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username: {type: String, require: true},\
