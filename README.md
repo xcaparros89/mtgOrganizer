@@ -1,20 +1,28 @@
 # MTG-Organizer
 
-# Description
+## Description
 This page is used to manage your magic decks and find new decks and cards
-Uses Handlebards, CSS, Bootstrap, JS, JQuery and it's responsive.
 
-# MVP
-Home page, 
-Decks search page,
-Cards search page,
-Personal page,
-Deck info page,
-Card info page,
-Call to Magic's API for the cards info
-User and Deck Model
-CRUD + authentication and authorization
-Resposive page
+## Technologies used
+Uses Handlebards, CSS, Bootstrap, JS, JQuery, responsive design, express, mongoDB, cloudinary
+
+
+## Link deploy
+https://mtg-organizer-deck-builder.herokuapp.com/
+
+## To try it
+Write in the console:
+- npm i
+- npm start
+- Runs in the localhost 3000
+
+## Pages
+Home page
+Decks search page
+Cards search page
+Personal page
+Deck info page
+Card info page
 
 # Backlog
 Cards market,
@@ -88,12 +96,4 @@ Deck model\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sideboard: {type: [{cardId: String, count: Number}], require: true},\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;likes: {type: [String]}\
 &nbsp;&nbsp;&nbsp;&nbsp;}\
-
-
-# Links
-GitHub
-https://github.com/xcaparros89/Project2
-
-Heroku
-https://mtg-organizer-deck-builder.herokuapp.com/
 
